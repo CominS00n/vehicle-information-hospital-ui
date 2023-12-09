@@ -37,7 +37,7 @@ const router = createRouter({
         {
           path: 'add-car',
           name: 'add-car',
-          component: () => import('../views/About.vue')
+          component: () => import('../views/about.vue')
         },
         {
 
