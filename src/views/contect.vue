@@ -11,7 +11,7 @@
       <!-- head -->
       <thead>
         <tr>
-          <th v-for="header in headers">{{ header.label }}</th>
+          <th v-for="header in headers" class="text-base">{{ header.label }}</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +20,7 @@
           <th>{{ car.id }}</th>
           <td>{{ car.name }}</td>
           <td>{{ car.price }}</td>
-          <td><Icon icon="heroicons-outline:pencil-square" /></td>
+          <td><Icon icon="heroicons-outline:pencil-square" class="text-xl" /></td>
         </tr>
       </tbody>
     </table>
@@ -35,7 +35,7 @@ import Icon from '@/components/Icon/index.vue'
 const headers = [
   {
     key: '',
-    label: 'id'
+    label: 'ID'
   },
   {
     key: 'name',

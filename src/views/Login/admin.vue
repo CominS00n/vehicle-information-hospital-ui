@@ -7,10 +7,10 @@
         <textinput label="Password" />
         <div class="flex flex-col lg:flex-row mt-5 gap-4">
           <router-link to="/" class="w-full"
-            ><button class="btn btn-sm w-full">Cancel</button></router-link
+            ><button class="btn w-full">Cancel</button></router-link
           >
           <router-link to="/app" class="w-full"
-            ><button class="btn btn-primary btn-sm w-full">Login</button></router-link
+            ><button class="btn btn-primary w-full">Login</button></router-link
           >
         </div>
       </div>

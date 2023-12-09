@@ -1,9 +1,9 @@
 <template>
-  <div class="flex justify-center items-center h-screen gap-x-5">
-    <div class="card w-64 bg-base-100 shadow-xl">
+  <div class="grid gap-y-5  lg:flex items-center h-screen lg:gap-x-5 justify-evenly">
+    <div class="card lg:w-[400px] bg-base-100 shadow-xl border">
       <figure class="px-10 pt-10">
         <img
-          src="../../image/user.jpg"
+          src="https://images.pexels.com/photos/2409566/pexels-photo-2409566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Shoes"
           class="rounded-xl"
         />
@@ -13,16 +13,16 @@
         <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
         <div class="card-actions">
           <router-link to="/login-user"
-            ><button class="btn btn-primary btn-sm">Login</button></router-link
+            ><button class="btn btn-primary w-32">Login</button></router-link
           >
         </div>
       </div>
     </div>
 
-    <div class="card w-64 bg-base-100 shadow-xl">
+    <div class="card lg:w-[400px] bg-base-100 shadow-xl border">
       <figure class="px-10 pt-10">
         <img
-          src="../../image/admin-text.jpg"
+          src="https://images.pexels.com/photos/9180717/pexels-photo-9180717.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Shoes"
           class="rounded-xl"
         />
@@ -32,16 +32,16 @@
         <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
         <div class="card-actions">
           <router-link to="/login-admin"
-            ><button class="btn btn-primary btn-sm">Login</button></router-link
+            ><button class="btn btn-primary w-32">Login</button></router-link
           >
         </div>
       </div>
     </div>
 
-    <div class="card w-64 bg-base-100 shadow-xl">
+    <div class="card lg:w-[400px] bg-base-100 shadow-xl border">
       <figure class="px-10 pt-10">
         <img
-          src="../../image/car.jpg"
+          src="https://images.pexels.com/photos/104836/speed-car-vehicle-drive-104836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Shoes"
           class="rounded-xl"
         />
@@ -51,7 +51,7 @@
         <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
         <div class="card-actions">
           <router-link to="/login-other"
-            ><button class="btn btn-primary btn-sm">Login</button></router-link
+            ><button class="btn btn-primary w-32">Login</button></router-link
           >
         </div>
       </div>
