@@ -49,14 +49,14 @@
     <li
       v-for="(item, i) in items"
       :key="i"
-      class="text-gray-700 hover:text-[#ef1822] hover:bg-gray-50 h-7"
+      class="text-gray-700 hover:text-[#ef1822] hover:bg-gray-50 h-12 items-center flex"
       :class="`${this.$route.name === item.link ? 'menu-item-active' : ''}`"
     >
       <router-link :to="`${item.link}`" class="menu-link flex items-center gap-2">
         <span class="menu-icon" v-show="item.icon">
           <Icon :icon="item.icon" />
         </span>
-        <div class="text-box" v-if="item.title">
+        <div class="text-box text-lg" v-if="item.title">
           {{ item.title }}
         </div>
       </router-link>
@@ -121,7 +121,7 @@ export default {
 .menu-item-active {
   @apply h-auto;
   .menu-link {
-    @apply bg-gray-100 text-[#ef1822] rounded-md h-7 px-2;
+    @apply bg-gray-100 text-[#ef1822] rounded-md px-2 h-12 items-center flex w-full shadow-md;
     .icon-box,
     .menu-icon,
     .text-box {

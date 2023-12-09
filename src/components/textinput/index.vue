@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p class="text-xs text-slate-400">{{ label }}</p>
+    <p class="text-slate-400">{{ label }}</p>
     <input
-      :class="`border border-slate-400 h-6 rounded-md  p-2 shadow-md focus:outline-none focus:border-slate-600 text-slate-700 text-xs w-full {{ classtext }}`"
+      :class="`border border-slate-400 h-9 rounded-md  p-2 shadow-md focus:outline-none focus:border-slate-600 text-slate-700 text-sm w-full`"
       type="text"
       :placeholder="placeholder"
     />
@@ -15,10 +15,6 @@ export default {
     label: {
       type: String,
       default: 'Label'
-    },
-    classtext: {
-      type: String,
-      default: ''
     },
     placeholder: {
       type: String,
