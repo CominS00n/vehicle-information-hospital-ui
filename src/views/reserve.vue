@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <!-- row 1 -->
-        <tr v-for="car in cars">
+        <tr v-for="car in cars"  class="hover:bg-slate-100 hover:shadow-md">
           <th>{{ car.id }}</th>
           <td>{{ car.name }}</td>
           <td>{{ car.price }}</td>
