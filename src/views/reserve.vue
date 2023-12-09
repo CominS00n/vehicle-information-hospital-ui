@@ -48,7 +48,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import textinput from '@/components/TextInput/index.vue'
+import textinput from '@/components/textinput/index.vue'
 import { cars } from '@/constant/example-table'
 
 const headers = [
