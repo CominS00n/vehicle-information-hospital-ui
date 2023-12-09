@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import Icon from '@/components/icon/index.vue'
+import Icon from '@/components/Icon/index.vue'
 </script>
 
 <style scoped>
