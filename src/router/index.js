@@ -37,14 +37,14 @@ const router = createRouter({
         {
           path: 'add-car',
           name: 'add-car',
-          component: () => import('../views/about.vue')
+          component: () => import('../views/contect.vue')
         },
         {
 
           path: 'reserve',
           name: 'reserve',
           component: () => import('../views/reserve.vue')
-        }
+        },
       ]
     },
     {
