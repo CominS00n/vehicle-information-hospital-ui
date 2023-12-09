@@ -20,7 +20,7 @@
 import Icon from '@/components/icon/index.vue'
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .card-title {
   font-size: 5rem;
   font-weight: 700;
