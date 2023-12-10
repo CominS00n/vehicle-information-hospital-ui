@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <TransitionRoot as="template" :show="sidebarOpen">
+    <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
         <TransitionChild
           as="template"
@@ -40,7 +40,7 @@
                     <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
                   </button>
                 </div>
-              </TransitionChild> -->
+              </TransitionChild>
 
               <!-- !Sidebar component, swap this element with another sidebar if you like -->
               <!-- <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
@@ -54,12 +54,12 @@
                 <nav class="flex flex-1 flex-col">
                   <Navmenu :items="menuItems" :disable="false" />
                 </nav>
-              </div>
+              </div> -->
             </DialogPanel>
           </TransitionChild>
         </div>
       </Dialog>
-    </TransitionRoot> -->
+    </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
@@ -109,7 +109,6 @@
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               />
             </div>
-            <span class="sr-only">Your profile</span>
           </div>
         </div>
         <ul
