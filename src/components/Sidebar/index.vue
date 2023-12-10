@@ -86,9 +86,9 @@
         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
       <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
-        <div v-for="(item, i) in menuItems">
+        <!-- <div v-for="(item, i) in menuItems">
           {{ this.$route.name === item.link ? item.title : '' }}
-        </div>
+        </div> -->
       </div>
       <!-- <a href="#">
         <span class="sr-only">Your profile</span>
