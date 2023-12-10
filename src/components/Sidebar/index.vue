@@ -89,14 +89,38 @@
           {{ this.$route.name === item.link ? item.title : '' }}
         </div>
       </div>
-      <a href="#">
+      <!-- <a href="#">
         <span class="sr-only">Your profile</span>
         <img
           class="h-8 w-8 rounded-full bg-gray-50"
           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt=""
         />
-      </a>
+      </a> -->
+      <div class="dropdown dropdown-end hover:bg-gray-50" >
+        <div tabindex="0" role="button">
+          <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
+            <div class="w-8 rounded-full">
+              <img
+                class="h-8 w-8 rounded-full bg-gray-50"
+                alt="Tailwind CSS Navbar component"
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              />
+            </div>
+            <span class="sr-only">Your profile</span>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="mt-1 z-[1] p-2 shadow-md menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <router-link to="/" class="w-full"
+              ><Icon icon="heroicons-outline:arrow-left-on-rectangle" />Logout</router-link
+            >
+          </li>
+        </ul>
+      </div>
     </div>
 
     <main class="py-10 lg:pl-72">
