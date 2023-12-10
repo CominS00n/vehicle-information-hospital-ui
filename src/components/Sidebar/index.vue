@@ -97,7 +97,7 @@
           alt=""
         />
       </a> -->
-      <div class="dropdown dropdown-end hover:bg-gray-50" >
+      <!-- <div class="dropdown dropdown-end hover:bg-gray-50" >
         <div tabindex="0" role="button">
           <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
             <div class="w-8 rounded-full">
@@ -120,7 +120,7 @@
             >
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
 
     <main class="py-10 lg:pl-72">
