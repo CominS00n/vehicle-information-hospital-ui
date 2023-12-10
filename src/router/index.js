@@ -32,18 +32,18 @@ const router = createRouter({
         {
           path: 'car',
           name: 'car',
-          component: () => import('../views/contect.vue')
+          component: () => import('../views/carView.vue')
         },
         {
           path: 'add-car',
           name: 'add-car',
-          component: () => import('../views/about.vue')
+          component: () => import('../views/addNewCar.vue')
         },
         {
 
           path: 'reserve',
           name: 'reserve',
-          component: () => import('../views/reserve.vue')
+          component: () => import('../views/carReserve.vue')
         },
       ]
     },
