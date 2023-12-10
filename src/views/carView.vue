@@ -23,8 +23,12 @@
           <!-- row 1 -->
           <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
             <th>{{ car.id }}</th>
-            <td>{{ car.name }}</td>
-            <td>{{ car.price }}</td>
+            <td>{{ car.type }}</td>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.licensePlate }}</td>
+            <td>{{ car.mileage }}</td>
+            <td>{{ car.lastChangeOil }}</td>
+            <td>{{ car.lastChangeBrake }}</td>
             <td><Icon icon="heroicons-outline:pencil-square" class="text-xl" /></td>
           </tr>
         </tbody>
@@ -41,16 +45,32 @@ import { TransitionRoot } from '@headlessui/vue'
 
 const headers = [
   {
-    key: '',
-    label: 'ID'
+    key: 'id',
+    label: 'ไอดี'
   },
   {
-    key: 'name',
-    label: 'Name'
+    key: 'type',
+    label: 'ประเภท'
   },
   {
-    key: 'price',
-    label: 'Price'
+    key: 'brand',
+    label: 'แบรนด์'
+  },
+  {
+    key: 'licensePlate',
+    label: 'เลขทะเบียน'
+  },
+  {
+    key: 'mileage',
+    label: 'เลขไมล์'
+  },
+  {
+    key: 'lastChangeOil',
+    label: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
+  },
+  {
+    key: 'lastChangeBrake',
+    label: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
   },
   {
     key: 'action',

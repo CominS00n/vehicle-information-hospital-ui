@@ -23,9 +23,10 @@
           <!-- row 1 -->
           <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
             <th>{{ car.id }}</th>
-            <td>{{ car.name }}</td>
-            <td>{{ car.price }}</td>
-            <td><div v-if="car.status" class="badge bg-[#ef1822] text-white">ติดจอง</div></td>
+            <td>{{ car.type }}</td>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.mileage }}</td>
+            <td><div v-if="car.status" class="badge bg-[#099c3d] text-white">ติดจอง</div></td>
             <td>
               <div class="space-x-2">
                 <button
@@ -76,7 +77,9 @@
           Cancel
         </button>
         <div class="w-full">
-          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d]">Save</button>
+          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d]">
+            Save
+          </button>
         </div>
       </div>
     </template>
@@ -116,20 +119,24 @@ const bodyStyle = ref({
 
 const headers = [
   {
-    key: '',
-    label: 'ID'
+    key: 'id',
+    label: 'ไอดี'
   },
   {
-    key: 'name',
-    label: 'Name'
+    key: 'type',
+    label: 'ประเภท'
   },
   {
-    key: 'price',
-    label: 'Price'
+    key: 'brand',
+    label: 'แบรนด์'
+  },
+  {
+    key: 'mileage',
+    label: 'เลขไมล์'
   },
   {
     key: 'status',
-    label: 'Status'
+    label: 'สถานะ'
   },
   {
     key: 'action',
