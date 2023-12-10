@@ -27,7 +27,7 @@ const router = createRouter({
       path: '/app',
       name: 'Layout',
       redirect: "/app/car",
-      component: () => import('@/views/Home.vue'),
+      component: () => import('@/layout/Home.vue'),
       children: [
         {
           path: 'car',
