@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <h1 class="text-2xl">เพิ่มข้อมูลรถ</h1>
-    <hr class="my-4 lg:my-6">
+    <hr class="my-4 lg:my-6" />
     <div class="grid lg:grid-cols-3 gap-x-6 gap-y-7">
       <div class="w-full space-y-6">
         <textinput label="ทะเบียนรถ" />
@@ -21,10 +21,12 @@
     </div>
     <div class="mt-12 grid gap-y-2 md:flex md:gap-x-4">
       <div class="md:w-52 w-full">
-        <button class="btn btn-outline md:w-52 w-full">ยกเลิก</button>
+        <router-link to="car" class="w-full"
+          ><button class="btn btn-outline md:w-52 w-full">ยกเลิก</button></router-link
+        >
       </div>
       <div class="w-full">
-        <button class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full">เพิ่มข้อมูล</button>
+        <button @click="addCar" class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full">เพิ่มข้อมูล</button>
       </div>
     </div>
   </div>
@@ -32,4 +34,14 @@
 
 <script setup>
 import textinput from '@/components/textinput/index.vue'
+import { RouterLink } from 'vue-router'
+import { useToast } from "vue-toastification"
+
+const toast = useToast()
+
+function addCar() {
+  toast.success("เพิ่มข้อมูลรถเรียบร้อยแล้ว",{
+    timeout: 2000
+  })
+}
 </script>

@@ -10,7 +10,7 @@
             ><button class="btn btn-outline w-full">Cancel</button></router-link
           >
           <router-link to="/app" class="w-full"
-            ><button class="btn btn-primary w-full">Login</button></router-link
+            ><button @click="login" class="btn btn-primary w-full">Login</button></router-link
           >
         </div>
       </div>
@@ -20,4 +20,13 @@
 
 <script setup>
 import textinput from '@/components/textinput/index.vue'
+import { useToast } from "vue-toastification"
+
+const toast = useToast()
+
+function login() {
+  toast.success("เข้าสู่ระบบเรียบร้อยแล้ว",{
+    timeout: 2000
+  })
+} 
 </script>
