@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TransitionRoot as="template" :show="sidebarOpen">
+    <!-- <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
         <TransitionChild
           as="template"
@@ -40,10 +40,10 @@
                     <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
                   </button>
                 </div>
-              </TransitionChild>
+              </TransitionChild> -->
 
-              <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
+              <!-- !Sidebar component, swap this element with another sidebar if you like -->
+              <!-- <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                 <div class="flex h-16 shrink-0 items-center">
                   <img
                     class="h-8 bg-gray-50"
@@ -59,7 +59,7 @@
           </TransitionChild>
         </div>
       </Dialog>
-    </TransitionRoot>
+    </TransitionRoot> -->
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
@@ -86,9 +86,9 @@
         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
       <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
-        <div v-for="(item, i) in menuItems">
+        <!-- <div v-for="(item, i) in menuItems">
           {{ this.$route.name === item.link ? item.title : '' }}
-        </div>
+        </div> -->
       </div>
       <!-- <a href="#">
         <span class="sr-only">Your profile</span>
@@ -99,7 +99,7 @@
         />
       </a> -->
       
-      <div class="dropdown dropdown-end hover:bg-gray-50" >
+      <!-- <div class="dropdown dropdown-end hover:bg-gray-50" >
         <div tabindex="0" role="button">
           <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
             <div class="w-8 rounded-full">
@@ -122,7 +122,7 @@
             >
           </li>
         </ul>
-      </div>
+      </div> -->
     </div>
 
     <main class="py-10 lg:pl-72">
