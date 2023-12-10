@@ -43,7 +43,7 @@
               </TransitionChild>
 
               <!-- !Sidebar component, swap this element with another sidebar if you like -->
-              <!-- <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
+              <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                 <div class="flex h-16 shrink-0 items-center">
                   <img
                     class="h-8 bg-gray-50"
@@ -54,7 +54,7 @@
                 <nav class="flex flex-1 flex-col">
                   <Navmenu :items="menuItems" :disable="false" />
                 </nav>
-              </div> -->
+              </div>
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -85,11 +85,10 @@
         <span class="sr-only">Open sidebar</span>
         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
-      <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
-        <div>
+      <!-- <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
           {{ this.$route.name }}
-        </div>
-      </div>
+      </div> -->
+
       <!-- <a href="#">
         <span class="sr-only">Your profile</span>
         <img
