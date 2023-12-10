@@ -31,6 +31,7 @@
                 <button
                   class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d]"
                   :disabled="car.status"
+                  @click="openReserveModal = true"
                 >
                   จอง
                 </button>
@@ -42,12 +43,76 @@
       </table>
     </div>
   </TransitionRoot>
+
+  <!--? Modal -->
+  <n-modal
+    v-model:show="openReserveModal"
+    class="custom-card rounded-lg"
+    preset="card"
+    :style="bodyStyle"
+    title="จองรถ"
+    :bordered="false"
+    size="huge"
+  >
+    <div class="grid gap-4">
+      <textinput v-model="date" label="วันที่ต้องการจอง" placeholder="กรอกวันที่ต้องการจอง" />
+      <textinput v-model="address" label="สถานที่" placeholder="กรอกสถานที่" />
+      <Select
+        @select="handleSelectTypeCars"
+        :menuLists="typeCars"
+        placeholder="เลือกประเภทของรถ"
+        label="ประเภทของรถ"
+      />
+      <textinput
+        v-model="licensePlate"
+        label="หมายเลขทะเบียนรถ"
+        placeholder="กรอกหมายเลขทะเบียนรถ"
+      />
+      <textinput v-model="mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)" />
+    </div>
+    <template #footer>
+      <div class="flex gap-x-2">
+        <button @click="openReserveModal = !openReserveModal" class="btn btn-outline w-32">
+          Cancel
+        </button>
+        <div class="w-full">
+          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d]">Save</button>
+        </div>
+      </div>
+    </template>
+  </n-modal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
+import textinput from '@/components/textinput/index.vue'
+import Select from '@/components/Select/index.vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+const openReserveModal = ref(false)
+const licensePlate = ref('')
+const mileage = ref('')
+const selectTypeCars = ref('')
+const address = ref('')
+const date = ref('')
+
+function handleSelectTypeCars(value) {
+  selectTypeCars.value = value
+}
+
+function submit() {
+  toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', {
+    timeout: 2000
+  })
+  openReserveModal.value = !openReserveModal.value
+}
+
+const bodyStyle = ref({
+  width: '600px'
+})
 
 const headers = [
   {
@@ -72,7 +137,15 @@ const headers = [
   }
 ]
 
-const timestamp = ref(new Date())
+const typeCars = ref([
+  'รถยนต์',
+  'รถจักรยานยนต์',
+  'รถบรรทุก',
+  'รถตู้',
+  'รถบัส',
+  'รถเก๋ง',
+  'รถตู้ทัวร์'
+])
 </script>
 
 <style lang="scss">
