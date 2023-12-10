@@ -116,7 +116,7 @@
         >
           <li>
             <router-link to="/" class="w-full"
-              ><Icon icon="heroicons-outline:arrow-left-on-rectangle" />Logout</router-link
+              ><Icon icon="heroicons-outline:arrow-left-on-rectangle" />ออกจากระบบ</router-link
             >
           </li>
         </ul>
