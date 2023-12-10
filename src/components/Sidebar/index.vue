@@ -123,7 +123,7 @@
       </div>
     </div>
 
-    <main class="py-10 lg:pl-72">
+    <main class="py-4 lg:py-10 lg:pl-72">
       <div class="px-4 sm:px-6 lg:px-8">
         <RouterView />
       </div>

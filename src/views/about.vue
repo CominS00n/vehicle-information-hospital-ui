@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <h1 class="text-2xl">เพิ่มข้อมูลรถ</h1>
-    <hr class="my-6">
+    <hr class="my-4 lg:my-6">
     <div class="grid lg:grid-cols-3 gap-x-6 gap-y-7">
       <div class="w-full space-y-6">
         <textinput label="ทะเบียนรถ" />
