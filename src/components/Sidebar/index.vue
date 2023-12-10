@@ -41,6 +41,7 @@
                   </button>
                 </div>
               </TransitionChild>
+
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                 <div class="flex h-16 shrink-0 items-center">
@@ -51,7 +52,7 @@
                   />
                 </div>
                 <nav class="flex flex-1 flex-col">
-                  <Navmenu :items="menuItems" :disable="false" />
+                  <!-- <Navmenu :items="menuItems" :disable="false" /> -->
                 </nav>
               </div>
             </DialogPanel>
