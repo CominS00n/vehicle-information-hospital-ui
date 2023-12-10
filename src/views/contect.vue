@@ -4,8 +4,8 @@
     <textinput label="Hello world" placeholder="" />
     <textinput label="Hello world" placeholder="" />
   </div> -->
-  <h1 class="text-2xl hidden lg:block">ข้อมูลรถ</h1>
-  <hr class="my-6 hidden lg:block">
+  <h1 class="text-2xl">ข้อมูลรถ</h1>
+  <hr class="my-6">
   <div class="overflow-x-auto">
     <table class="table">
       <!-- head -->
