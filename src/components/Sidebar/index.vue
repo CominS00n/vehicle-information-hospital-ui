@@ -85,9 +85,9 @@
         <span class="sr-only">Open sidebar</span>
         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
-      <!-- <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
-          {{ this.$route.name }}
-      </div> -->
+      <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
+          <!-- {{ this.$route.name }} -->
+      </div>
 
       <!-- <a href="#">
         <span class="sr-only">Your profile</span>
@@ -144,5 +144,4 @@ import Navmenu from './Navmenu.vue'
 import Icon from '@/components/Icon/index.vue'
 
 const sidebarOpen = ref(false)
-const items = ref(menuItems)
 </script>
