@@ -52,7 +52,7 @@
                   />
                 </div>
                 <nav class="flex flex-1 flex-col">
-                  <!-- <Navmenu :items="menuItems" :disable="false" /> -->
+                  <Navmenu :items="menuItems" :disable="false" />
                 </nav>
               </div>
             </DialogPanel>
@@ -99,7 +99,7 @@
         />
       </a> -->
       
-      <!-- !<div class="dropdown dropdown-end hover:bg-gray-50" >
+      <div class="dropdown dropdown-end hover:bg-gray-50" >
         <div tabindex="0" role="button">
           <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
             <div class="w-8 rounded-full">
@@ -122,7 +122,7 @@
             >
           </li>
         </ul>
-      </div> -->
+      </div>
     </div>
 
     <main class="py-10 lg:pl-72">
@@ -140,15 +140,10 @@ import { menuItems } from '@/constant/data.js'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   Bars3Icon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
   XMarkIcon
 } from '@heroicons/vue/24/outline'
 import Navmenu from './Navmenu.vue'
+import Icon from '@/components/Icon/index.vue'
 
 const sidebarOpen = ref(false)
 </script>
