@@ -1,50 +1,4 @@
 <template>
-  <!-- <nav class="flex flex-1 flex-col">
-    <ul role="list" class="flex flex-1 flex-col gap-y-7">
-      <li>
-        <ul role="list" class="-mx-2 space-y-1">
-          <li v-for="item in navigation" :key="item.name">
-            <RouterLink :to="item.href">
-              <a
-                :href="item.href"
-                :class="[
-                  item.current
-                    ? 'bg-gray-50 text-indigo-600'
-                    : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                ]"
-              >
-                <component
-                  :is="item.icon"
-                  :class="[
-                    item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
-                    'h-6 w-6 shrink-0'
-                  ]"
-                  aria-hidden="true"
-                />
-                {{ item.name }}
-              </a>
-            </RouterLink>
-          </li>
-        </ul>
-      </li>
-      <li class="-mx-6 mt-auto">
-        <a
-          href="#"
-          class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
-        >
-          <img
-            class="h-8 w-8 rounded-full bg-gray-50"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
-          <span class="sr-only">Your profile</span>
-          <span aria-hidden="true">Tom Cook</span>
-        </a>
-      </li>
-    </ul>
-    {{ items }}
-  </nav> -->
   <ul>
     <li
       v-for="(item, i) in items"
@@ -63,7 +17,7 @@
     </li>
   </ul>
   <div class="flex items-end h-full mb-2">
-    <div class="dropdown dropdown-top hover:bg-gray-50 ">
+    <div class="dropdown dropdown-top hover:bg-gray-50" v-show="disable">
       <div tabindex="0" role="button">
         <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
           <div class="w-8 rounded-full">
@@ -112,7 +66,8 @@ export default {
       default: ''
     },
     items: { type: Array, required: true },
-    childrenLinks: { type: Array, default: null }
+    childrenLinks: { type: Array, default: null },
+    disable: { type: Boolean, default: true }
   }
 }
 </script>

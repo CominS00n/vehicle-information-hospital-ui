@@ -1,6 +1,6 @@
 <template>
-  <h1 class="text-2xl">ข้อมูลการจอง</h1>
-  <hr class="my-6">
+  <h1 class="text-2xl hidden lg:block">ข้อมูลการจอง</h1>
+  <hr class="my-6 hidden lg:block">
   <div class="overflow-x-auto">
     <table class="table">
       <!-- head -->
