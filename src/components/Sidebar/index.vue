@@ -69,7 +69,7 @@
         <div class="flex h-16 shrink-0 items-center">
           <img class="h-[50px] w-auto mt-5" src="../../image/Logo.jpeg" alt="Your Company" />
         </div>
-        <Navmenu :items="menuItems" />
+        <!-- <Navmenu :items="menuItems" /> -->
       </div>
     </div>
 
@@ -85,9 +85,9 @@
         <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
       <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
-        <div v-for="(item, i) in menuItems">
+        <!-- <div v-for="(item, i) in menuItems">
           {{ this.$route.name === item.link ? item.title : '' }}
-        </div>
+        </div> -->
       </div>
       <!-- <a href="#">
         <span class="sr-only">Your profile</span>
