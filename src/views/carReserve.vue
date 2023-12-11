@@ -26,11 +26,11 @@
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.mileage }}</td>
-            <td><div v-if="car.status" class="badge bg-[#099c3d] text-white">ติดจอง</div></td>
+            <td><div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div></td>
             <td>
               <div class="space-x-2">
                 <button
-                  class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d]"
+                  class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal"
                   :disabled="car.status"
                   @click="openReserveModal = true"
                 >
@@ -50,7 +50,7 @@
     v-model:show="openReserveModal"
     class="custom-card rounded-lg"
     preset="card"
-    :style="bodyStyle"
+    style="width: 600px;"
     title="จองรถ"
     :bordered="false"
     size="huge"
@@ -73,12 +73,12 @@
     </div>
     <template #footer>
       <div class="flex gap-x-2">
-        <button @click="openReserveModal = !openReserveModal" class="btn btn-outline w-32">
-          Cancel
+        <button @click="openReserveModal = !openReserveModal" class="btn btn-outline w-32 font-normal">
+          ยกเลิก
         </button>
         <div class="w-full">
-          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d]">
-            Save
+          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal">
+            จอง
           </button>
         </div>
       </div>
@@ -107,15 +107,12 @@ function handleSelectTypeCars(value) {
 }
 
 function submit() {
-  toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', {
+  toast.success('จองเรียบร้อยแล้ว', {
     timeout: 2000
   })
   openReserveModal.value = !openReserveModal.value
 }
 
-const bodyStyle = ref({
-  width: '600px'
-})
 
 const headers = [
   {

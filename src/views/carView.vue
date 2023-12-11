@@ -29,19 +29,59 @@
             <td>{{ car.mileage }}</td>
             <td>{{ car.lastChangeOil }}</td>
             <td>{{ car.lastChangeBrake }}</td>
-            <td><Icon icon="heroicons-outline:pencil-square" class="text-xl" /></td>
+            <td>
+              <button @click="openDetailModal = !openDetailModal">
+                <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </TransitionRoot>
+
+  <!--? Modal -->
+  <n-modal
+    v-model:show="openDetailModal"
+    class="custom-card rounded-lg"
+    preset="card"
+    style="width: 600px"
+    title="ข้อมูลรถ"
+    :bordered="false"
+    size="huge"
+  >
+    <div class="grid gap-4">
+      <textinput />
+      <textinput />
+      <textinput />
+      <textinput />
+    </div>
+    <template #footer>
+      <div class="flex gap-x-2">
+        <button @click="openDetailModal = !openDetailModal" class="btn btn-outline w-32 font-normal">
+          ยกเลิก
+        </button>
+        <div class="w-full">
+          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal">
+            บันทึก
+          </button>
+        </div>
+      </div>
+    </template>
+  </n-modal>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import textinput from '@/components/textinput/index.vue'
 import { cars } from '@/constant/example-table'
 import Icon from '@/components/Icon/index.vue'
 import { TransitionRoot } from '@headlessui/vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
+const openDetailModal = ref(false)
 
 const headers = [
   {
@@ -77,4 +117,11 @@ const headers = [
     label: ''
   }
 ]
+
+async function submit() {
+  toast.success('บันทึกข้อมูลสำเร็จ', {
+    timeout: 2000
+  })
+  openDetailModal.value = !openDetailModal.value
+}
 </script>
