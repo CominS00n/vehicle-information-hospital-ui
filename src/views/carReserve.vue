@@ -30,7 +30,7 @@
             <td>
               <div class="space-x-2">
                 <button
-                  class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal"
+                  class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal btn-sm"
                   :disabled="car.status"
                   @click="openReserveModal = true"
                 >
