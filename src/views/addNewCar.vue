@@ -45,11 +45,11 @@
       <div class="mt-12 grid gap-y-2 md:flex md:gap-x-4">
         <div class="md:w-52 w-full">
           <router-link to="car" class="w-full"
-            ><button class="btn btn-outline md:w-52 w-full">ยกเลิก</button></router-link
+            ><button class="btn btn-outline md:w-52 w-full font-normal">ยกเลิก</button></router-link
           >
         </div>
         <div class="w-full">
-          <button @click="addCar" class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full">
+          <button @click="addCar" class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full font-normal">
             เพิ่มข้อมูล
           </button>
         </div>

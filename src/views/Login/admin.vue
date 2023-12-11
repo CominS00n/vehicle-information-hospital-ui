@@ -17,10 +17,10 @@
           <textinput label="Password" />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
-              ><button class="btn btn-outline w-full">ยกเลิก</button></router-link
+              ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
             >
             <router-link to="/app" class="w-full"
-              ><button @click="login" class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full">
+              ><button @click="login" class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal">
                 เข้าสู่ระบบ
               </button></router-link
             >
@@ -44,3 +44,4 @@ function login() {
   })
 }
 </script>
+

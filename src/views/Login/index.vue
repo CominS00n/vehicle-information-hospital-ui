@@ -23,7 +23,7 @@
           <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
           <div class="card-actions">
             <router-link to="/login-admin"
-              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32">
+              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32 font-normal">
                 เข้าสู่ระบบ
               </button></router-link
             >
@@ -55,7 +55,7 @@
           <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
           <div class="card-actions">
             <router-link to="/login-user"
-              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32">
+              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32 font-normal">
                 เข้าสู่ระบบ
               </button></router-link
             >
@@ -87,7 +87,7 @@
           <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
           <div class="card-actions">
             <router-link to="/login-other"
-              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32">
+              ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32 font-normal">
                 เข้าสู่ระบบ
               </button></router-link
             >
