@@ -19,7 +19,7 @@
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
             >
-            <router-link to="/app" class="w-full"
+            <router-link to="/admin" class="w-full"
               ><button @click="login" class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal">
                 เข้าสู่ระบบ
               </button></router-link

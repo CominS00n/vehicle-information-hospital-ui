@@ -12,14 +12,14 @@
     <div class="flex justify-center container h-screen items-center mx-auto">
       <div class="card lg:card-side bg-base-100 shadow-xl w-[500px] border">
         <div class="card-body">
-          <h5 class="card-title">Other Login</h5>
+          <h5 class="card-title">User Login</h5>
           <textinput label="Username" classtext="w-full" />
           <textinput label="Password" />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
             >
-            <router-link to="/app" class="w-full"
+            <router-link to="/employee" class="w-full"
               ><button @click="login" class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal">
                 เข้าสู่ระบบ
               </button></router-link
@@ -38,9 +38,9 @@ import { TransitionRoot } from '@headlessui/vue'
 
 const toast = useToast()
 
-function login() {
-  toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', {
-    timeout: 2000
-  })
-}
+// function login() {
+//   toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', {
+//     timeout: 2000
+//   })
+// }
 </script>

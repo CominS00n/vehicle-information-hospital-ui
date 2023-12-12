@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/login-user',
       name: 'login-user',
-      component: () => import('@/views/Login/user.vue')
+      component: () => import('@/views/Login/employee.vue')
     },
     {
       path: '/login-admin',
@@ -21,28 +21,28 @@ const router = createRouter({
     {
       path: '/login-other',
       name: 'login-other',
-      component: () => import('@/views/Login/other.vue')
+      component: () => import('@/views/Login/driver.vue')
     },
     {
-      path: '/app',
+      path: '/admin',
       name: 'Layout',
-      redirect: "/app/car",
-      component: () => import('@/layout/Home.vue'),
+      redirect: "/admin/car",
+      component: () => import('@/layout/Admin/Home.vue'),
       children: [
         {
           path: 'car',
           name: 'car',
-          component: () => import('../views/carView.vue')
+          component: () => import('../views/Admin/carView.vue')
         },
         {
           path: 'add-car',
           name: 'add-car',
-          component: () => import('../views/addNewCar.vue')
+          component: () => import('../views/Admin/addNewCar.vue')
         },
         {
           path: 'reserve',
           name: 'reserve',
-          component: () => import('../views/carReserve.vue')
+          component: () => import('../views/Admin/carReserve.vue')
         },
       ]
     },
