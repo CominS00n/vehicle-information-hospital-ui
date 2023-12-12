@@ -14,4 +14,9 @@
         icon: 'heroicons-outline:plus-circle',
         link: 'add-car'
     },
+    {
+        title: 'ลงทะเบียนผู้ใช้',
+        icon: 'heroicons-outline:user-plus',
+        link: 'register'
+    },
     ]
