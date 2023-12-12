@@ -12,9 +12,9 @@
     <div class="flex justify-center container h-screen items-center mx-auto">
       <div class="card lg:card-side bg-base-100 shadow-xl w-[500px] border">
         <div class="card-body">
-          <h5 class="card-title">User Login</h5>
-          <textinput label="Username" classtext="w-full" />
-          <textinput label="Password" />
+          <h5 class="card-title">เข้าสู่ระบบด้วยบัญชีพนักงาน</h5>
+          <textinput label="ชื่อผู้ใช้งาน" classtext="w-full" />
+          <textinput type="password" label="รหัสผ่าน" />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
