@@ -51,7 +51,7 @@
     </div>
     <div class="w-full">
       <button
-        @click="login"
+        @click="submit"
         class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal"
       >
         สมัครสมาชิก
@@ -62,4 +62,14 @@
 
 <script setup>
 import textinput from '@/components/textinput/index.vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
+async function submit() {
+  toast.success('สมัครสมาชิก "ผู้ดูแลระบบ" เรียบร้อยแล้ว', {
+    timeout: 2000
+  })
+}
+
 </script>
