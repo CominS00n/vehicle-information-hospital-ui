@@ -45,9 +45,9 @@
   </div>
 
   <!-- ? button -->
-  <div class="flex gap-x-2 mt-6">
-    <div>
-      <button class="btn btn-outline w-full font-normal">ยกเลิก</button>
+  <div class="grid gap-y-2 lg:flex gap-x-2 mt-6 ">
+    <div class="lg:w-48 w-full">
+      <button class="btn btn-outline lg:w-48 w-full font-normal">ยกเลิก</button>
     </div>
     <div class="w-full">
       <button
