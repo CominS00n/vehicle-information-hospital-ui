@@ -27,9 +27,9 @@
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             />
           </div> -->
-          <n-avatar round class="bg-[#099c3d]">
+          <div class="h-8 w-8 rounded-full bg-[#099c3d] text-white flex justify-center items-center">
             {{ account.firstname[0] }}{{ account.lastname[0] }}
-          </n-avatar>
+          </div>
           <span class="sr-only">Your profile</span>
           <!-- <span aria-hidden="true">Tom Cook</span> -->
           <span aria-hidden="true">{{ account.firstname }} {{ account.lastname }}</span>
