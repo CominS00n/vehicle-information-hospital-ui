@@ -46,8 +46,8 @@
         </li>
       </ul>
     </div>
-    {{ randomColor }}
   </div>
+  {{ account }}
 </template>
 
 <script>
