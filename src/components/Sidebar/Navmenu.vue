@@ -28,7 +28,7 @@
             />
           </div> -->
           <n-avatar round class="bg-[#099c3d]">
-            {{ account.firstname[0] }} {{ account.lastname[0] }}
+            {{ account.firstname[0] }}{{ account.lastname[0] }}
           </n-avatar>
           <span class="sr-only">Your profile</span>
           <!-- <span aria-hidden="true">Tom Cook</span> -->
