@@ -1,19 +1,18 @@
 <template>
   <n-tabs type="line" size="medium" animated>
     <n-tab-pane name="admin" tab="ผู้ดูแลระบบ">
-      <registerAdmin />
+      <register textAlert="ผู้ดูแลระบบ" />
     </n-tab-pane>
     <n-tab-pane name="employee" tab="พนักงาน">
-      <registerEmployee />
+      <register textAlert="พนักงาน" />
     </n-tab-pane>
     <n-tab-pane name="driver" tab="พนักงานขับรถ">
-      <registerDriver />
+      <register textAlert="พนักงานขับรถ"/>
     </n-tab-pane>
   </n-tabs>
 </template>
 
 <script setup>
-import registerAdmin from '@/components/Register/admin.vue'
-import registerEmployee from '@/components/Register/employee.vue'
-import registerDriver from '@/components/Register/driver.vue'
+import register from '@/components/Register/index.vue'
+
 </script>
