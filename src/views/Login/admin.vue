@@ -13,14 +13,17 @@
       <div class="card lg:card-side bg-base-100 shadow-xl w-[500px] border">
         <div class="card-body">
           <h5 class="card-title">เข้าสู่ระบบด้วยบัญชีผู้ดูแล</h5>
-          <textinput label="ชื่อผู้ใช้งาน" classtext="w-full" />
-          <textinput type="password" label="รหัสผ่าน" />
+          <textinput v-model="username" value="User 1" label="ชื่อผู้ใช้งาน" classtext="w-full" />
+          <textinput v-model="password" value="123456" type="password" label="รหัสผ่าน" />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
             >
-            <router-link to="/admin" class="w-full"
-              ><button @click="login" class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal">
+            <router-link :to="isLoggedIn ? '/admin' : '/login-admin'" class="w-full"
+              ><button
+                @click="login"
+                class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal"
+              >
                 เข้าสู่ระบบ
               </button></router-link
             >
@@ -32,16 +35,41 @@
 </template>
 
 <script setup>
-import textinput from '@/components/textinput/index.vue'
+import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
+import { Admin } from '@/constant/user'
+import { saveUsername } from '@/constant/accountLogin'
+
+import textinput from '@/components/textinput/index.vue'
 
 const toast = useToast()
 
+const username = ref('ComningS00n')
+const password = ref('2sas0fsc0')
+const isLoggedIn = ref(false)
+
+const account = ref({
+  username: username,
+  password: password
+})
+
 function login() {
-  toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', {
-    timeout: 2000
-  })
+  const foundAdmin = Admin.find(
+    (item) => item.Username === username.value && item.Password === password.value
+  )
+
+  if (foundAdmin) {
+    account.value = foundAdmin
+    isLoggedIn.value = true
+    saveUsername({
+      username: username.value,
+      firstname: foundAdmin.Fristname,
+      lastname: foundAdmin.Lastname
+    })
+    toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', { timeout: 2000 })
+  } else {
+    toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+  }
 }
 </script>
-

@@ -20,15 +20,19 @@
     <div class="dropdown dropdown-top hover:bg-gray-50" v-show="disable">
       <div tabindex="0" role="button">
         <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
-          <div class="w-8 rounded-full">
+          <!-- <div class="w-8 rounded-full">
             <img
               class="h-8 w-8 rounded-full bg-gray-50"
               alt="Tailwind CSS Navbar component"
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             />
-          </div>
+          </div> -->
+          <n-avatar round class="bg-[#099c3d]">
+            {{ account.firstname[0] }}{{ account.lastname[0] }}
+          </n-avatar>
           <span class="sr-only">Your profile</span>
-          <span aria-hidden="true">Tom Cook</span>
+          <!-- <span aria-hidden="true">Tom Cook</span> -->
+          <span aria-hidden="true">{{ account.firstname }} {{ account.lastname }}</span>
         </div>
       </div>
       <ul
@@ -42,13 +46,20 @@
         </li>
       </ul>
     </div>
+    {{ randomColor }}
   </div>
 </template>
 
 <script>
 import Icon from '@/components/Icon/index.vue'
+import { getStoredUsername } from '@/constant/accountLogin'
 
 export default {
+  data() {
+    return {
+      account: getStoredUsername()
+    }
+  },
   components: {
     Icon
   },

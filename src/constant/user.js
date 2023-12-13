@@ -26,7 +26,7 @@ export const Admin = [
   {
     ID: 4,
     Username: 'ComningS00n',
-    Password: '113890',
+    Password: '2sas0fsc0',
     Fristname: 'Sitthichai',
     Lastname: 'Puckpoo',
     Email: 'spockpoo@gmail.com'
