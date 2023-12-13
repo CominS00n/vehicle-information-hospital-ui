@@ -13,8 +13,19 @@
       <div class="card lg:card-side bg-base-100 shadow-xl w-[500px] border">
         <div class="card-body">
           <h5 class="card-title">เข้าสู่ระบบด้วยบัญชีผู้ดูแล</h5>
-          <textinput v-model="username" value="User 1" label="ชื่อผู้ใช้งาน" classtext="w-full" />
-          <textinput v-model="password" value="123456" type="password" label="รหัสผ่าน" />
+          <textinput
+            v-model="username"
+            value="User 1"
+            label="ชื่อผู้ใช้งาน"
+            placeholder="กรอกชื่อผู้ใช้งาน"
+          />
+          <textinput
+            v-model="password"
+            value="123456"
+            type="password"
+            label="รหัสผ่าน"
+            placeholder="กรอกรหัสผ่าน"
+          />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
@@ -45,7 +56,7 @@ import textinput from '@/components/textinput/index.vue'
 
 const toast = useToast()
 
-const username = ref('ComningS00n')
+const username = ref('ComingS00n')
 const password = ref('2sas0fsc0')
 const isLoggedIn = ref(false)
 
@@ -53,7 +64,6 @@ const account = ref({
   username: username,
   password: password
 })
-
 
 function login() {
   const foundAdmin = Admin.find(
@@ -70,7 +80,9 @@ function login() {
     })
     toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', { timeout: 2000 })
   } else {
-    toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
+    username.value = ''
+    password.value = ''
+    toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', { timeout: 2000 })
   }
 }
 </script>
