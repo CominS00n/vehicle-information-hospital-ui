@@ -39,7 +39,7 @@ import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
 import { Admin } from '@/constant/user'
-import { saveUsername } from '@/constant/accountLogin'
+import { saveUserInfo } from '@/constant/accountLogin'
 
 import textinput from '@/components/textinput/index.vue'
 
@@ -54,6 +54,7 @@ const account = ref({
   password: password
 })
 
+
 function login() {
   const foundAdmin = Admin.find(
     (item) => item.Username === username.value && item.Password === password.value
@@ -62,7 +63,7 @@ function login() {
   if (foundAdmin) {
     account.value = foundAdmin
     isLoggedIn.value = true
-    saveUsername({
+    saveUserInfo({
       username: username.value,
       firstname: foundAdmin.Fristname,
       lastname: foundAdmin.Lastname

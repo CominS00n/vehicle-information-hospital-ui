@@ -1,9 +1,12 @@
-let storedUsername = {};
+const storageKey = 'user_info';
 
-export function saveUsername(value) {
-  storedUsername = value;
+let userInfo = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+export function saveUserInfo(info) {
+  userInfo = info;
+  localStorage.setItem(storageKey, JSON.stringify(userInfo));
 }
 
-export function getStoredUsername() {
-  return storedUsername;
+export function getUserInfo() {
+  return userInfo;
 }

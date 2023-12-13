@@ -89,19 +89,19 @@
 
       <div class="dropdown dropdown-end hover:bg-gray-50">
         <div tabindex="0" role="button">
-          <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900">
-            <!-- ? Avatars -->
-            <div class="w-8 rounded-full">
+          <!-- <div class="flex items-center gap-x-4 text-sm font-semibold leading-6 text-gray-900"> -->
+          <!-- ? Avatars -->
+          <!-- <div class="w-8 rounded-full">
               <img
                 class="h-8 w-8 rounded-full bg-gray-50"
                 alt="Tailwind CSS Navbar component"
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               />
-            </div>
-            <!-- <n-avatar round class="bg-[#099c3d]">
-              {{ account.firstname[0] }}{{ account.lastname[0] }}
-            </n-avatar> -->
-          </div>
+            </div> -->
+          <n-avatar round class="bg-[#099c3d]">
+            {{ account.firstname[0] }}{{ account.lastname[0] }}
+          </n-avatar>
+          <!-- </div> -->
         </div>
         <ul
           tabindex="0"
@@ -129,12 +129,12 @@ import { ref } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
 import { menuItems } from '@/constant/data.js'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { getStoredUsername } from '@/constant/accountLogin'
+import { getUserInfo } from '@/constant/accountLogin'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 import Navmenu from './Navmenu.vue'
 import Icon from '@/components/Icon/index.vue'
 
 const sidebarOpen = ref(false)
-const account = getStoredUsername()
+const account = getUserInfo()
 </script>

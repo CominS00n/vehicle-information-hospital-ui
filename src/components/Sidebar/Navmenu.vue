@@ -28,7 +28,7 @@
             />
           </div> -->
           <n-avatar round class="bg-[#099c3d]">
-            {{ account.firstname[0] }}{{ account.lastname[0] }}
+            {{ account.firstname[0] }} {{ account.lastname[0] }}
           </n-avatar>
           <span class="sr-only">Your profile</span>
           <!-- <span aria-hidden="true">Tom Cook</span> -->
@@ -47,17 +47,16 @@
       </ul>
     </div>
   </div>
-  {{ account }}
 </template>
 
 <script>
 import Icon from '@/components/Icon/index.vue'
-import { getStoredUsername } from '@/constant/accountLogin'
+import { getUserInfo } from '@/constant/accountLogin'
 
 export default {
   data() {
     return {
-      account: getStoredUsername()
+      account: getUserInfo()
     }
   },
   components: {
