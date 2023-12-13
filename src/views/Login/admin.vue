@@ -25,6 +25,7 @@
             type="password"
             label="รหัสผ่าน"
             placeholder="กรอกรหัสผ่าน"
+            password
           />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"

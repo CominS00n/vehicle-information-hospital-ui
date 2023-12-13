@@ -68,6 +68,7 @@
           type="password"
           label="Password"
           classtext="w-full"
+          password
         />
       </div>
       <div class="w-full">
@@ -77,6 +78,7 @@
           type="password"
           label="Confirm Password"
           classtext="w-full"
+          password
         />
       </div>
     </div>
@@ -85,7 +87,11 @@
   <!-- ? button -->
   <div class="grid gap-y-2 lg:flex gap-x-2 mt-6">
     <div class="lg:w-48 w-full">
-      <button class="btn btn-outline lg:w-48 w-full font-normal">ยกเลิก</button>
+      <router-link to="car" class="w-full"
+        ><button @click="cancel" class="btn btn-outline lg:w-48 w-full font-normal">
+          ยกเลิก
+        </button></router-link
+      >
     </div>
     <div class="w-full">
       <button
@@ -155,6 +161,18 @@ export default {
           timeout: 2000
         })
       }
+    },
+    cancel() {
+      this.name = ''
+      this.lastname = ''
+      this.position = ''
+      this.department = ''
+      this.address = ''
+      this.phone = ''
+      this.email = ''
+      this.username = ''
+      this.password = ''
+      this.confirmpassword = ''
     }
   }
 }

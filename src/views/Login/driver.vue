@@ -14,7 +14,7 @@
         <div class="card-body">
           <h5 class="card-title">เข้าสู่ระบบด้วยบัญชีพนักงานขับรถ</h5>
           <textinput label="ชื่อผู้ใช้งาน" classtext="w-full" />
-          <textinput type="password" label="รหัสผ่าน" />
+          <textinput type="password" label="รหัสผ่าน" password />
           <div class="flex flex-col lg:flex-row mt-5 gap-4">
             <router-link to="/" class="w-full"
               ><button class="btn btn-outline w-full font-normal">ยกเลิก</button></router-link
