@@ -9,7 +9,7 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <h1 class="text-2xl">ข้อมูลสินค้า</h1>
+    <h1 class="text-2xl">เพิ่มข้อมูลสินค้า</h1>
     <hr class="my-4 lg:my-6" />
     ว่างเปล่า
   </TransitionRoot>

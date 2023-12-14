@@ -10,14 +10,19 @@ export const menuItems_Admin = [
     link: 'admin-reserve'
   },
   {
+    title: 'อุปกรณ์',
+    icon: 'heroicons-outline:rectangle-stack',
+    link: 'admin-product'
+  },
+  {
     title: 'เพิ่มข้อมูลรถ',
     icon: 'heroicons-outline:plus-circle',
     link: 'admin-add-car'
   },
   {
-    title: 'ข้อมูลสินค้า',
-    icon: 'heroicons-outline:rectangle-stack',
-    link: 'admin-product'
+    title: 'เพิ่มอุปกรณ์',
+    icon: 'heroicons-outline:plus-circle',
+    link: 'admin-add-product'
   },
   {
     title: 'ลงทะเบียนผู้ใช้',
@@ -33,4 +38,20 @@ export const menuItems_User = [
     icon: 'heroicons-outline:truck',
     link: 'employee-car'
   },
+  {
+    title: 'จองรถ',
+    icon: 'heroicons-outline:bookmark',
+    link: ''
+  },
+  {
+    title: 'อุปกรณ์',
+    icon: 'heroicons-outline:rectangle-stack',
+    link: ''
+  },
+  {
+    title: 'เบิกอุปกรณ์',
+    icon: 'heroicons-outline:inbox-stack',
+    link: ''
+  },
+
 ]

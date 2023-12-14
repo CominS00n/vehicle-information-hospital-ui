@@ -37,11 +37,6 @@ const router = createRouter({
           component: () => import('@/views/Admin/carView.vue')
         },
         {
-          path: 'admin-add-car',
-          name: 'admin-add-car',
-          component: () => import('@/views/Admin/addNewCar.vue')
-        },
-        {
           path: 'admin-reserve',
           name: 'admin-reserve',
           component: () => import('@/views/Admin/carReserve.vue')
@@ -50,6 +45,16 @@ const router = createRouter({
           path: 'admin-product',
           name: 'admin-product',
           component: () => import('@/views/Admin/product.vue')
+        },
+        {
+          path: 'admin-add-car',
+          name: 'admin-add-car',
+          component: () => import('@/views/Admin/addNewCar.vue')
+        },
+        {
+          path: 'admin-add-product',
+          name: 'admin-add-product',
+          component: () => import('@/views/Admin/addNewProduct.vue')
         },
         {
           path: 'admin-register',
