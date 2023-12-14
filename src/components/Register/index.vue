@@ -85,20 +85,18 @@
   </div>
 
   <!-- ? button -->
-  <div class="grid gap-y-2 lg:flex gap-x-2 mt-6">
-    <div class="lg:w-48 w-full">
-      <router-link to="car" class="w-full"
-        ><button @click="cancel" class="btn btn-outline lg:w-48 w-full font-normal">
-          ยกเลิก
-        </button></router-link
+  <div class="mt-6 grid gap-y-2 md:flex md:gap-x-4">
+    <div class="md:w-52 w-full">
+      <router-link to="" class="w-full"
+        ><button @click="cancel" class="btn btn-outline md:w-52 w-full font-normal">ยกเลิก</button></router-link
       >
     </div>
     <div class="w-full">
       <button
         @click="submit"
-        class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-full font-normal"
+        class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full font-normal"
       >
-        สมัครสมาชิก
+      สมัครสมาชิก
       </button>
     </div>
   </div>

@@ -44,7 +44,7 @@
       </div>
       <div class="mt-12 grid gap-y-2 md:flex md:gap-x-4">
         <div class="md:w-52 w-full">
-          <router-link to="car" class="w-full"
+          <router-link to="admin-car" class="w-full"
             ><button class="btn btn-outline md:w-52 w-full font-normal">ยกเลิก</button></router-link
           >
         </div>

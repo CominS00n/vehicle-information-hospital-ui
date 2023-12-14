@@ -48,11 +48,11 @@
                   <img
                     class="h-8 bg-gray-50"
                     alt="Tailwind CSS Navbar component"
-                    src="../../image/Logo.jpeg"
+                    src="@/image/Logo.jpeg"
                   />
                 </div>
                 <nav class="flex flex-1 flex-col">
-                  <Navmenu :items="menuItems" :disable="false" />
+                  <Navmenu :items="menuItems_Admin" :disable="false" />
                 </nav>
               </div>
             </DialogPanel>
@@ -68,9 +68,9 @@
         class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6"
       >
         <div class="flex h-16 shrink-0 items-center">
-          <img class="h-[50px] w-auto mt-5" src="../../image/Logo.jpeg" alt="Your Company" />
+          <img class="h-[50px] w-auto mt-5" src="@/image/Logo.jpeg" alt="Your Company" />
         </div>
-        <Navmenu :items="menuItems" />
+        <Navmenu :items="menuItems_Admin" />
       </div>
     </div>
 
@@ -129,7 +129,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
-import { menuItems } from '@/constant/data.js'
+import { menuItems_Admin } from '@/constant/data.js'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { getUserInfo } from '@/constant/accountLogin'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'

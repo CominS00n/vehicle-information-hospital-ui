@@ -1,6 +1,5 @@
 <script setup>
-import Sidebar from '@/components/Sidebar/index.vue'
-import { RouterLink } from 'vue-router';
+import Sidebar from '@/components/Sidebar/User/index.vue'
 </script>
 
 <template>

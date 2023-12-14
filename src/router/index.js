@@ -23,34 +23,58 @@ const router = createRouter({
       name: 'login-other',
       component: () => import('@/views/Login/driver.vue')
     },
+
+    // admin page
     {
       path: '/admin',
-      name: 'Layout',
-      redirect: "/admin/car",
-      component: () => import('@/layout/Admin/Home.vue'),
+      name: 'admin-layout',
+      redirect: "/admin/admin-car",
+      component: () => import('@/layout/Admin/index.vue'),
       children: [
         {
-          path: 'car',
-          name: 'car',
-          component: () => import('../views/Admin/carView.vue')
+          path: 'admin-car',
+          name: 'admin-car',
+          component: () => import('@/views/Admin/carView.vue')
         },
         {
-          path: 'add-car',
-          name: 'add-car',
-          component: () => import('../views/Admin/addNewCar.vue')
+          path: 'admin-add-car',
+          name: 'admin-add-car',
+          component: () => import('@/views/Admin/addNewCar.vue')
         },
         {
-          path: 'reserve',
-          name: 'reserve',
-          component: () => import('../views/Admin/carReserve.vue')
+          path: 'admin-reserve',
+          name: 'admin-reserve',
+          component: () => import('@/views/Admin/carReserve.vue')
         },
         {
-          path: 'register',
-          name: 'register',
-          component: () => import('../views/Login/Register/register.vue')
+          path: 'admin-product',
+          name: 'admin-product',
+          component: () => import('@/views/Admin/product.vue')
+        },
+        {
+          path: 'admin-register',
+          name: 'admin-register',
+          component: () => import('@/views/Login/Register/register.vue')
         }
       ]
     },
+
+    // employee page
+    {
+      path: '/employee',
+      name: 'employee-layout',
+      redirect: "/employee/employee-car",
+      component: () => import('@/layout/User/index.vue'),
+      children: [
+        {
+          path: 'employee-car',
+          name: 'employee-car',
+          component: () => import('../views/Employee/carView.vue')
+        },
+      ]
+    },
+
+
     {
       path: "/:catchAll(.*)",
       name: "404",
