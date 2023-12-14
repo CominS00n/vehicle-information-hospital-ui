@@ -74,12 +74,27 @@ const router = createRouter({
         {
           path: 'employee-car',
           name: 'employee-car',
-          component: () => import('../views/Employee/carView.vue')
+          component: () => import('@/views/Employee/carView.vue')
         },
       ]
     },
 
+     // driver page
+     {
+      path: '/driver',
+      name: 'driver-layout',
+      redirect: "/driver/driver-car",
+      component: () => import('@/layout/Driver/index.vue'),
+      children: [
+        {
+          path: 'driver-car',
+          name: 'driver-car',
+          component: () => import('@/views/Driver/carView.vue')
+        },
+      ]
+    },
 
+    // 404 page
     {
       path: "/:catchAll(.*)",
       name: "404",

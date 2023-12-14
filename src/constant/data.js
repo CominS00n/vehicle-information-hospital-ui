@@ -53,5 +53,23 @@ export const menuItems_User = [
     icon: 'heroicons-outline:inbox-stack',
     link: ''
   },
+]
 
+
+export const menuItems_Driver = [
+  {
+    title: 'ตารางการใช้รถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'driver-car'
+  },
+  {
+    title: 'กรอกข้อมูลการใช้รถ',
+    icon: 'heroicons-outline:document-check',
+    link: ''
+  },
+  {
+    title: 'เบิกอุปกรณ์',
+    icon: 'heroicons-outline:inbox-stack',
+    link: ''
+  },
 ]
