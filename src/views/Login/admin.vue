@@ -57,7 +57,7 @@ import textinput from '@/components/textinput/index.vue'
 
 const toast = useToast()
 
-const username = ref('ComingS00n')
+const username = ref('admin1')
 const password = ref('2sas0fsc0')
 const isLoggedIn = ref(false)
 
