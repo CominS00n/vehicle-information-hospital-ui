@@ -11,7 +11,6 @@
   >
     <h1 class="text-2xl">อุปกรณ์</h1>
     <hr class="my-4 lg:my-6" />
-    ว่างเปล่า
   </TransitionRoot>
 </template>
 
