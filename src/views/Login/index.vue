@@ -54,7 +54,7 @@
           <h2 class="card-title">พนักงานทั่วไป</h2>
           <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
           <div class="card-actions">
-            <router-link to="/login-user"
+            <router-link to="/login-employee"
               ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32 font-normal">
                 เข้าสู่ระบบ
               </button></router-link
@@ -86,7 +86,7 @@
           <h2 class="card-title">พนักงานขับรถ</h2>
           <!-- <p>If a dog chews shoes whose shoes does he choose?</p> -->
           <div class="card-actions">
-            <router-link to="/login-other"
+            <router-link to="/login-driver"
               ><button class="btn bg-[#099c3d] hover:bg-[#099c3d] text-white w-32 font-normal">
                 เข้าสู่ระบบ
               </button></router-link

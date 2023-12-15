@@ -1,8 +1,8 @@
 export const Admin = [
   {
     ID: 1,
-    Username: 'User 1',
-    Password: '123456',
+    Username: 'Admin',
+    Password: 'asd0fa0sdf',
     Fristname: 'Fristname 1',
     Lastname: 'Lastname 1',
     Email: 'example@gmail.com'
@@ -36,8 +36,8 @@ export const Admin = [
 export const Employee = [
   {
     ID: 1,
-    Username: 'User 1',
-    Password: '123456',
+    Username: 'Employee',
+    Password: 'sa23ar4',
     Fristname: 'Fristname 1',
     Lastname: 'Lastname 1',
     Email: 'example@gmail.com'
@@ -68,13 +68,13 @@ export const Employee = [
   }
 ]
 
-export const driver = [
+export const Driver = [
   {
     ID: 1,
-    Username: 'User 1',
-    Password: '123456',
-    Fristname: 'Fristname 1',
-    Lastname: 'Lastname 1',
+    Username: 'Driver',
+    Password: 'aas9d6f',
+    Fristname: 'John',
+    Lastname: 'Smith',
     Email: 'example@gmail.com'
   },
   {

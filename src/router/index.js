@@ -9,8 +9,8 @@ const router = createRouter({
       component: () => import('@/views/Login/index.vue')
     },
     {
-      path: '/login-user',
-      name: 'login-user',
+      path: '/login-employee',
+      name: 'login-employee',
       component: () => import('@/views/Login/employee.vue')
     },
     {
@@ -19,8 +19,8 @@ const router = createRouter({
       component: () => import('@/views/Login/admin.vue'),
     },
     {
-      path: '/login-other',
-      name: 'login-other',
+      path: '/login-driver',
+      name: 'login-driver',
       component: () => import('@/views/Login/driver.vue')
     },
 
