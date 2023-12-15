@@ -19,7 +19,12 @@
         <textinput label="จำนวน" placeholder="จำนวน" type="number" />
       </div>
       <div>
-        <textinput label="หมวดหมู่" placeholder="หมวดหมู่" />
+        <Select
+          @select="handleSelectCategory"
+          :menuLists="category"
+          placeholder="หมวดหมู่"
+          label="หมวดหมู่"
+        />
       </div>
       <div>
         <textinput label="รายละเอียด" placeholder="รายละเอียด" />
@@ -45,15 +50,27 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
-import textinput from '@/components/textinput/index.vue'
 import { useToast } from 'vue-toastification'
 
-const toast = useToast()
+import textinput from '@/components/textinput/index.vue'
+import Select from '@/components/Select/index.vue'
 
+const toast = useToast()
+const selectCategory = ref('')
+
+const category = ref([
+  'อุปกรณ์ทางการแพทย์',
+  'อุปกรณ์ล้างรถ',
+])
 const submit = () => {
   toast.success('เพิ่มอุปกรณ์สำเร็จ', {
     timeout: 2000,
   })
+}
+
+function handleSelectCategory(value) {
+  selectCategory.value = value
 }
 </script>
