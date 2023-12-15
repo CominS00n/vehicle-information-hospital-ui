@@ -22,11 +22,10 @@
         <tbody>
           <!-- row 1 -->
           <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
-            <th>{{ car.id }}</th>
+            <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.licensePlate }}</td>
-            <td>{{ car.mileage }}</td>
             <td>{{ car.lastChangeOil }}</td>
             <td>{{ car.lastChangeBrake }}</td>
             <td>
@@ -99,10 +98,6 @@ const headers = [
   {
     key: 'licensePlate',
     label: 'เลขทะเบียน'
-  },
-  {
-    key: 'mileage',
-    label: 'เลขไมล์'
   },
   {
     key: 'lastChangeOil',

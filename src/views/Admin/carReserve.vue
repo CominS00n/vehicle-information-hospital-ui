@@ -22,7 +22,7 @@
         <tbody>
           <!-- row 1 -->
           <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
-            <th>{{ car.id }}</th>
+            <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.mileage }}</td>
@@ -41,6 +41,11 @@
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </TransitionRoot>

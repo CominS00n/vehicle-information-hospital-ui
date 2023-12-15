@@ -79,13 +79,11 @@ import { TransitionRoot } from '@headlessui/vue'
 const toast = useToast()
 
 const typeCars = ref([
-  'รถยนต์',
-  'รถจักรยานยนต์',
-  'รถบรรทุก',
   'รถตู้',
-  'รถบัส',
-  'รถเก๋ง',
-  'รถตู้ทัวร์'
+  'รถพยาบาล',
+  'รถกระบะ',
+  'รถเอกซเรย์',
+  'รถกอร์ฟ',
 ])
 
 const brand = ref([
@@ -93,30 +91,12 @@ const brand = ref([
   'Toyota',
   'Mazda',
   'Nissan',
-  'Mitsubishi',
   'Isuzu',
   'Ford',
-  'Chevrolet',
   'Mercedes-Benz',
-  'BMW',
-  'Audi',
-  'Volkswagen',
-  'Volvo',
   'Suzuki',
-  'MG',
-  'Mini',
-  'Porsche',
-  'Lexus',
-  'KIA',
   'Hyundai',
-  'Jeep',
-  'Land Rover',
-  'Jaguar',
-  'Peugeot',
   'Subaru',
-  'Ferrari',
-  'Lamborghini',
-  'Rolls-Royce'
 ])
 
 const selectTypeCars = ref('')

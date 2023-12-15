@@ -11,10 +11,49 @@
   >
     <h1 class="text-2xl">เพิ่มอุปกรณ์</h1>
     <hr class="my-4 lg:my-6" />
-    ว่างเปล่า
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+      <div>
+        <textinput label="ชื่ออุปกรณ์" placeholder="ชื่ออุปกรณ์" />
+      </div>
+      <div>
+        <textinput label="จำนวน" placeholder="จำนวน" type="number" />
+      </div>
+      <div>
+        <textinput label="หมวดหมู่" placeholder="หมวดหมู่" />
+      </div>
+      <div>
+        <textinput label="รายละเอียด" placeholder="รายละเอียด" />
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-y-2 md:flex md:gap-x-4">
+      <div class="md:w-52 w-full">
+        <router-link to="admin-car" class="w-full"
+          ><button class="btn btn-outline md:w-52 w-full font-normal">ยกเลิก</button></router-link
+        >
+      </div>
+      <div class="w-full">
+        <button
+          @click="submit"
+          class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full font-normal"
+        >
+          เพิ่มอุปกรณ์
+        </button>
+      </div>
+    </div>
   </TransitionRoot>
 </template>
 
 <script setup>
 import { TransitionRoot } from '@headlessui/vue'
+import textinput from '@/components/textinput/index.vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
+const submit = () => {
+  toast.success('เพิ่มอุปกรณ์สำเร็จ', {
+    timeout: 2000,
+  })
+}
 </script>

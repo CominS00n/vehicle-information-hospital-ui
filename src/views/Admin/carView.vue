@@ -22,7 +22,7 @@
         <tbody>
           <!-- row 1 -->
           <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
-            <th>{{ car.id }}</th>
+            <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.licensePlate }}</td>
@@ -30,12 +30,20 @@
             <td>{{ car.lastChangeOil }}</td>
             <td>{{ car.lastChangeBrake }}</td>
             <td>
-              <button @click="openDetailModal = !openDetailModal">
+              <!-- <button @click="openDetailModal = !openDetailModal">
                 <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
+              </button> -->
+              <button @click="deleteCar">
+                <Icon icon="heroicons-outline:trash" class="text-xl" />
               </button>
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </TransitionRoot>
@@ -58,11 +66,17 @@
     </div>
     <template #footer>
       <div class="flex gap-x-2">
-        <button @click="openDetailModal = !openDetailModal" class="btn btn-outline w-32 font-normal">
+        <button
+          @click="openDetailModal = !openDetailModal"
+          class="btn btn-outline w-32 font-normal"
+        >
           ยกเลิก
         </button>
         <div class="w-full">
-          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal">
+          <button
+            @click="submit"
+            class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
+          >
             บันทึก
           </button>
         </div>
@@ -123,5 +137,11 @@ async function submit() {
     timeout: 2000
   })
   openDetailModal.value = !openDetailModal.value
+}
+
+async function deleteCar() {
+  toast.error('ลบข้อมูลสำเร็จ', {
+    timeout: 2000
+  })
 }
 </script>

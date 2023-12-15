@@ -11,10 +11,59 @@
   >
     <h1 class="text-2xl">อุปกรณ์</h1>
     <hr class="my-4 lg:my-6" />
-    ว่างเปล่า
+    <div class="overflow-x-auto">
+      <table class="table">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- row 1 -->
+          <tr v-for="equipment in equipments" class="hover:bg-slate-100 hover:shadow-md">
+            <td>{{ equipment.id }}</td>
+            <td>{{ equipment.name }}</td>
+            <td>{{ equipment.amount }}</td>
+            <td>{{ equipment.category }}</td>
+            <td>{{ equipment.detail }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </TransitionRoot>
+  <p></p>
 </template>
 
 <script setup>
 import { TransitionRoot } from '@headlessui/vue'
+import { equipments } from '@/constant/example-table'
+
+const headers = [
+  {
+    key: 'id',
+    label: 'ไอดี'
+  },
+  {
+    key: 'name',
+    label: 'ชื่ออุปกรณ์'
+  },
+  {
+    key: 'amount',
+    label: 'จำนวน'
+  },
+  {
+    key: 'category',
+    label: 'หมวดหมู่'
+  },
+  {
+    key: 'detail',
+    label: 'รายละเอียด'
+  }
+]
 </script>

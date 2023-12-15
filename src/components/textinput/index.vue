@@ -3,7 +3,7 @@
     <p class="text-slate-500" :style="labelFont">{{ label }}</p>
     <div class="relative flex items-center">
       <input
-        class="border border-slate-400 h-10 rounded-md p-2 shadow-md focus:outline-none focus:border-[#099c3d] text-slate-700 text-sm w-full"
+        class="border h-10 rounded-md p-2 shadow-md focus:outline-none focus:border-[#099c3d] text-slate-700 text-sm w-full"
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"

@@ -4,7 +4,7 @@
     <Listbox v-model="selectMenu">
       <div class="relative">
         <ListboxButton
-          class="relative w-full h-10 border border-slate-400 rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm hover:border-[#099c3d]"
+          class="relative w-full h-10 border rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm hover:border-[#099c3d]"
         >
           <span :class="`block truncate ${selectMenu === null ? 'text-slate-400' : ''}`">{{
             selectMenu || placeholder
