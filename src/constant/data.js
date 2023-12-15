@@ -41,17 +41,17 @@ export const menuItems_User = [
   {
     title: 'จองรถ',
     icon: 'heroicons-outline:bookmark',
-    link: ''
+    link: 'employee-reserve'
   },
   {
     title: 'อุปกรณ์',
     icon: 'heroicons-outline:rectangle-stack',
-    link: ''
+    link: 'employee-product'
   },
   {
     title: 'เบิกอุปกรณ์',
     icon: 'heroicons-outline:inbox-stack',
-    link: ''
+    link: 'employee-withdraw'
   },
 ]
 
@@ -65,11 +65,11 @@ export const menuItems_Driver = [
   {
     title: 'กรอกข้อมูลการใช้รถ',
     icon: 'heroicons-outline:document-check',
-    link: ''
+    link: 'driver-input-data'
   },
   {
     title: 'เบิกอุปกรณ์',
     icon: 'heroicons-outline:inbox-stack',
-    link: ''
+    link: 'driver-withdraw'
   },
 ]

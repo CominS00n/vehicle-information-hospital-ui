@@ -76,6 +76,21 @@ const router = createRouter({
           name: 'employee-car',
           component: () => import('@/views/Employee/carView.vue')
         },
+        {
+          path: 'employee-reserve',
+          name: 'employee-reserve',
+          component: () => import('@/views/Employee/carReserve.vue')
+        },
+        {
+          path: 'employee-product',
+          name: 'employee-product',
+          component: () => import('@/views/Employee/product.vue')
+        },
+        {
+          path: 'employee-withdraw',
+          name: 'employee-withdraw',
+          component: () => import('@/views/Employee/equipmentWithdraw.vue')
+        }
       ]
     },
 
@@ -90,6 +105,16 @@ const router = createRouter({
           path: 'driver-car',
           name: 'driver-car',
           component: () => import('@/views/Driver/carView.vue')
+        },
+        {
+          path: 'driver-withdraw',
+          name: 'driver-withdraw',
+          component: () => import('@/views/Driver/equipmentWithdraw.vue')
+        },
+        {
+          path: 'driver-input-data',
+          name: 'driver-input-data',
+          component: () => import('@/views/Driver/inputCarData.vue')
         },
       ]
     },
