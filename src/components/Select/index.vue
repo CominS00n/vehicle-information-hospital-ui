@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <p class="text-slate-500">{{ label }}</p>
-    <Listbox v-model="selectMenu">
+    <Listbox v-model="selectMenu" :disabled="disabled">
       <div class="relative">
         <ListboxButton
           class="relative w-full h-10 border rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm hover:border-[#099c3d]"
@@ -82,6 +82,10 @@ export default {
     label: {
       type: String,
       default: 'Label'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
