@@ -26,7 +26,9 @@
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.mileage }}</td>
-            <td><div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div></td>
+            <td>
+              <div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div>
+            </td>
             <td>
               <div class="space-x-2">
                 <button
@@ -55,34 +57,63 @@
     v-model:show="openReserveModal"
     class="custom-card rounded-lg"
     preset="card"
-    style="width: 600px;"
+    style="width: 600px"
     title="จองรถ"
     :bordered="false"
     size="huge"
   >
     <div class="grid gap-4">
-      <textinput v-model="date" label="วันที่ต้องการจอง" placeholder="กรอกวันที่ต้องการจอง" />
-      <textinput v-model="address" label="สถานที่" placeholder="กรอกสถานที่" />
-      <Select
-        @select="handleSelectTypeCars"
-        :menuLists="typeCars"
-        placeholder="เลือกประเภทของรถ"
-        label="ประเภทของรถ"
-      />
-      <textinput
-        v-model="licensePlate"
-        label="หมายเลขทะเบียนรถ"
-        placeholder="กรอกหมายเลขทะเบียนรถ"
-      />
-      <textinput v-model="mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)" />
+      <div>
+        <textinput
+          v-model="date"
+          type="datetime-local"
+          label="วันที่ต้องการจอง"
+          placeholder="กรอกวันที่ต้องการจอง"
+        />
+      </div>
+      <div>
+        <Select
+          @select="handleSelectDriver"
+          :menuLists="drivers()"
+          placeholder="เลือกคนขับรถ"
+          label="คนขับรถ"
+        />
+      </div>
+      <div>
+        <textinput v-model="address" label="สถานที่" placeholder="กรอกสถานที่" />
+      </div>
+      <div>
+        <Select
+          @select="handleSelectTypeCars"
+          :menuLists="typeCars"
+          placeholder="เลือกประเภทของรถ"
+          label="ประเภทของรถ"
+        />
+      </div>
+      <div>
+        <textinput
+          v-model="licensePlate"
+          label="หมายเลขทะเบียนรถ"
+          placeholder="กรอกหมายเลขทะเบียนรถ"
+        />
+      </div>
+      <div>
+        <textinput v-model="mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)" />
+      </div>
     </div>
     <template #footer>
       <div class="flex gap-x-2">
-        <button @click="openReserveModal = !openReserveModal" class="btn btn-outline w-32 font-normal">
+        <button
+          @click="openReserveModal = !openReserveModal"
+          class="btn btn-outline w-32 font-normal"
+        >
           ยกเลิก
         </button>
         <div class="w-full">
-          <button @click="submit" class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal">
+          <button
+            @click="submit"
+            class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
+          >
             จอง
           </button>
         </div>
@@ -105,19 +136,25 @@ const licensePlate = ref('')
 const mileage = ref('')
 const selectTypeCars = ref('')
 const address = ref('')
-const date = ref('')
+const date = ref(new Date())
+const selectDriver = ref('')
 
 function handleSelectTypeCars(value) {
   selectTypeCars.value = value
 }
 
 function submit() {
+  licensePlate.value = ''
+  mileage.value = ''
+  selectTypeCars.value = ''
+  address.value = ''
+  date.value = new Date()
+  selectDriver.value = ''
   toast.success('จองเรียบร้อยแล้ว', {
     timeout: 2000
   })
   openReserveModal.value = !openReserveModal.value
 }
-
 
 const headers = [
   {
@@ -155,6 +192,29 @@ const typeCars = ref([
   'รถเก๋ง',
   'รถตู้ทัวร์'
 ])
+
+const driver = [
+  {
+    id: 1,
+    name: 'นาย สมชาย ใจดี'
+  },
+  {
+    id: 2,
+    name: 'นาย สมหญิง ใจร้าย'
+  },
+  {
+    id: 3,
+    name: 'นาย สมศรี ใจเย็น'
+  }
+]
+
+const drivers = () => {
+  return driver.map((item) => item.name)
+}
+
+function handleSelectDriver(value) {
+  selectDriver.value = value
+}
 </script>
 
 <style lang="scss">

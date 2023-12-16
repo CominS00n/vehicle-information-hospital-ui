@@ -35,6 +35,11 @@
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </TransitionRoot>

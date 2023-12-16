@@ -15,21 +15,20 @@
       <div>
         <textinput label="ผู้เบิกอุปกรณ์" placeholder="กรอกผู้เบิกอุปกรณ์" />
       </div>
-      <div>
+      <!-- <div>
         <Select
           @select="handleSelectCategory"
           :menuLists="category"
           placeholder="หมวดหมู่"
           label="หมวดหมู่"
         />
-      </div>
+      </div> -->
       <div>
         <Select
           @select="handleSelectEquipment"
-          :menuLists="equipmentList()"
-          :placeholder="selectCategory === '' ? 'กรุณาเลือกหมวดหมู' : 'เลือกอุปกรณ์'"
+          :menuLists="equipmentList"
+          :placeholder="'เลือกอุปกรณ์'"
           label="อุปกรณ์"
-          :disabled="selectCategory === '' ? true : false"
         />
       </div>
       <div>
@@ -74,7 +73,8 @@ import textinput from '@/components/textinput/index.vue'
 const selectCategory = ref('')
 const selectEquipment = ref('')
 const dateSelect = ref(new Date().toISOString().slice(0, 16))
-const category = ref(['อุปกรณ์ทางการแพทย์', 'อุปกรณ์ล้างรถ'])
+const equipmentList = ref(['แปรงล้างรถ', 'น้ำยาล้างรถ', 'ผ้าเช็ดรถ'])
+// const category = ref(['อุปกรณ์ทางการแพทย์', 'อุปกรณ์ล้างรถ'])
 const toast = useToast()
 
 const submit = () => {
@@ -89,19 +89,19 @@ const submit = () => {
   }
 }
 
-function handleSelectCategory(value) {
-  selectCategory.value = value
-}
+// function handleSelectCategory(value) {
+//   selectCategory.value = value
+// }
 
 function handleSelectEquipment(value) {
   selectEquipment.value = value
 }
 
-function equipmentList() {
-  if (selectCategory.value === 'อุปกรณ์ทางการแพทย์') {
-    return ['เครื่องวัดความดัน', 'เครื่องวัดอุณหภูมิ', 'เครื่องวัดอัตราการเต้นของหัวใจ']
-  } else if (selectCategory.value === 'อุปกรณ์ล้างรถ') {
-    return ['แปรงล้างรถ', 'น้ำยาล้างรถ', 'ผ้าเช็ดรถ']
-  }
-}
+// function equipmentList() {
+//   if (selectCategory.value === 'อุปกรณ์ทางการแพทย์') {
+//     return ['เครื่องวัดความดัน', 'เครื่องวัดอุณหภูมิ', 'เครื่องวัดอัตราการเต้นของหัวใจ']
+//   } else if (selectCategory.value === 'อุปกรณ์ล้างรถ') {
+//     return ['แปรงล้างรถ', 'น้ำยาล้างรถ', 'ผ้าเช็ดรถ']
+//   }
+// }
 </script>
