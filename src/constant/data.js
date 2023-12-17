@@ -43,16 +43,16 @@ export const menuItems_User = [
     icon: 'heroicons-outline:bookmark',
     link: 'employee-reserve'
   },
-  {
-    title: 'อุปกรณ์',
-    icon: 'heroicons-outline:rectangle-stack',
-    link: 'employee-product'
-  },
-  {
-    title: 'เบิกอุปกรณ์',
-    icon: 'heroicons-outline:inbox-stack',
-    link: 'employee-withdraw'
-  },
+  // {
+  //   title: 'อุปกรณ์',
+  //   icon: 'heroicons-outline:rectangle-stack',
+  //   link: 'employee-product'
+  // },
+  // {
+  //   title: 'เบิกอุปกรณ์',
+  //   icon: 'heroicons-outline:inbox-stack',
+  //   link: 'employee-withdraw'
+  // },
 ]
 
 
