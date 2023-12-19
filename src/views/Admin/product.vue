@@ -11,6 +11,15 @@
   >
     <h1 class="text-2xl">อุปกรณ์</h1>
     <hr class="my-4 lg:my-6" />
+    <div class="flex justify-end">
+      <textinput
+        label=""
+        class="w-full md:w-64 mb-2"
+        placeholder="Search..."
+        icon="search"
+        v-model="searchTerm"
+      />
+    </div>
     <div class="overflow-x-auto">
       <table class="table">
         <!-- head -->
@@ -21,7 +30,7 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="equipment in equipments" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="equipment in filteredEquipments" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ equipment.id }}</td>
             <td>{{ equipment.name }}</td>
             <td>{{ equipment.amount }}</td>
@@ -41,8 +50,11 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
 import { equipments } from '@/constant/example-table'
+
+import textinput from '@/components/textinput/index.vue'
 
 const headers = [
   {
@@ -66,4 +78,16 @@ const headers = [
     label: 'รายละเอียด'
   }
 ]
+
+const searchTerm = ref('')
+
+const filteredEquipments = computed(() => {
+  const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
+  return equipments.filter((car) => {
+    return (
+      car.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.category.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  })
+})
 </script>

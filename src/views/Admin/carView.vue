@@ -11,17 +11,24 @@
   >
     <h1 class="text-2xl">ข้อมูลรถ</h1>
     <hr class="my-4 lg:my-6" />
+    <div class="flex justify-end">
+      <textinput
+        label=""
+        class="w-full md:w-64 mb-2"
+        placeholder="Search..."
+        icon="search"
+        v-model="searchTerm"
+      />
+    </div>
     <div class="overflow-x-auto">
       <table class="table">
-        <!-- head -->
         <thead>
           <tr>
-            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+            <th v-for="header in headers" class="text-base">{{ header.title }}</th>
           </tr>
         </thead>
         <tbody>
-          <!-- row 1 -->
-          <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="car in filteredCars" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
@@ -86,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import textinput from '@/components/textinput/index.vue'
 import { cars } from '@/constant/example-table'
 import Icon from '@/components/Icon/index.vue'
@@ -100,35 +107,35 @@ const openDetailModal = ref(false)
 const headers = [
   {
     key: 'id',
-    label: 'ไอดี'
+    title: 'ไอดี'
   },
   {
     key: 'type',
-    label: 'ประเภท'
+    title: 'ประเภท'
   },
   {
     key: 'brand',
-    label: 'แบรนด์'
+    title: 'แบรนด์'
   },
   {
     key: 'licensePlate',
-    label: 'เลขทะเบียน'
+    title: 'เลขทะเบียน'
   },
   {
     key: 'mileage',
-    label: 'เลขไมล์'
+    title: 'เลขไมล์'
   },
   {
     key: 'lastChangeOil',
-    label: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
+    title: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
   },
   {
     key: 'lastChangeBrake',
-    label: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
+    title: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
   },
   {
     key: 'action',
-    label: ''
+    title: ''
   }
 ]
 
@@ -144,4 +151,17 @@ async function deleteCar() {
     timeout: 2000
   })
 }
+
+const searchTerm = ref('')
+
+const filteredCars = computed(() => {
+  const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
+  return cars.filter((car) => {
+    return (
+      car.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  })
+})
 </script>

@@ -17,6 +17,9 @@
           <Icon @click="type = 'password'" icon="heroicons-solid:eye" />
         </button>
       </div>
+      <div class="absolute z-10 right-4">
+        <Icon @click="type = 'text'" :icon="`heroicons-solid:${icon}`" />
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +55,10 @@ export default {
     password: {
       type: Boolean,
       default: false
+    },
+    icon: {
+      type: String,
+      default: ''
     }
   },
   methods: {

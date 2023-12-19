@@ -43,9 +43,9 @@ export const cars = [
     id: 5,
     type: 'รถตู้',
     brand: 'Mazda',
-    licensePlate: 'คค 1234',
+    licensePlate: 'คค 1342',
     mileage: 50000,
-    lastChangeOil: '2020-01-01',
+    lastChangeOil: '2021-01-01',
     lastChangeBrake: '2020-01-01',
     status: true
   }
