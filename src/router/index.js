@@ -104,7 +104,7 @@ const router = createRouter({
         {
           path: 'driver-car',
           name: 'driver-car',
-          component: () => import('@/views/Driver/carView.vue')
+          component: () => import('@/views/Driver/reportUseCars.vue')
         },
         {
           path: 'driver-withdraw',
