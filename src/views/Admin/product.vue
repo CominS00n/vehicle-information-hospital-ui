@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="equipment in filteredEquipments" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="equipment in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ equipment.id }}</td>
             <td>{{ equipment.name }}</td>
             <td>{{ equipment.amount }}</td>
@@ -44,6 +44,25 @@
           </tr>
         </tfoot>
       </table>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
+        <button
+          @click="goToPreviousPage"
+          :disabled="currentPage === 1"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
+        </button>
+        <span class="text-sm">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+          @click="goToNextPage"
+          :disabled="currentPage === totalPages"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
+        </button>
+      </div>
     </div>
   </TransitionRoot>
 </template>
@@ -54,6 +73,7 @@ import { TransitionRoot } from '@headlessui/vue'
 import { equipments } from '@/constant/example-table'
 
 import textinput from '@/components/textinput/index.vue'
+import Icon from '@/components/Icon/index.vue'
 
 const headers = [
   {
@@ -89,4 +109,31 @@ const filteredEquipments = computed(() => {
     )
   })
 })
+
+//pagination
+const currentPage = ref(1)
+
+const pageSize = 2
+
+const totalPages = computed(() => Math.ceil(filteredEquipments.value.length / pageSize))
+
+const paginatedEquipments = computed(() => {
+  const startIndex = (currentPage.value - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  return filteredEquipments.value.slice(startIndex, endIndex)
+})
+
+function goToPage(page) {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+  }
+}
+
+function goToPreviousPage() {
+  goToPage(currentPage.value - 1)
+}
+
+function goToNextPage() {
+  goToPage(currentPage.value + 1)
+}
 </script>

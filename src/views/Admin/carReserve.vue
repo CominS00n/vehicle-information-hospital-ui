@@ -69,7 +69,7 @@
         >
           <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
         </button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <span class="text-sm">Page {{ currentPage }} of {{ totalPages }}</span>
         <button
           @click="goToNextPage"
           :disabled="currentPage === totalPages"
@@ -95,7 +95,7 @@
       <div>
         <textinput
           v-model="date"
-          type="datetime-local"
+          type="date"
           label="วันที่ต้องการจอง"
           placeholder="กรอกวันที่ต้องการจอง"
         />
@@ -267,7 +267,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 10
+const pageSize = 3
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

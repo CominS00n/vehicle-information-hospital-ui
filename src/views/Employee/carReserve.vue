@@ -11,6 +11,15 @@
   >
     <h1 class="text-2xl">ข้อมูลการจอง</h1>
     <hr class="my-4 lg:my-6" />
+    <div class="flex justify-end">
+      <textinput
+        label=""
+        class="w-full md:w-64 mb-2"
+        placeholder="Search..."
+        icon="search"
+        v-model="searchTerm"
+      />
+    </div>
     <div class="overflow-x-auto">
       <table class="table">
         <!-- head -->
@@ -21,7 +30,7 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="car in cars" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
@@ -48,6 +57,24 @@
           </tr>
         </tfoot>
       </table>
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
+        <button
+          @click="goToPreviousPage"
+          :disabled="currentPage === 1"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
+        </button>
+        <span class="text-sm">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+          @click="goToNextPage"
+          :disabled="currentPage === totalPages"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
+        </button>
+      </div>
     </div>
   </TransitionRoot>
 
@@ -63,7 +90,12 @@
   >
     <div class="grid gap-4">
       <div>
-        <textinput v-model="date" type="datetime-local" label="วันที่ต้องการจอง" placeholder="กรอกวันที่ต้องการจอง" />
+        <textinput
+          v-model="date"
+          type="date"
+          label="วันที่ต้องการจอง"
+          placeholder="กรอกวันที่ต้องการจอง"
+        />
       </div>
       <div>
         <Select
@@ -117,12 +149,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
+import { useToast } from 'vue-toastification'
+
+import Icon from '@/components/Icon/index.vue'
 import textinput from '@/components/textinput/index.vue'
 import Select from '@/components/Select/index.vue'
-import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 const openReserveModal = ref(false)
@@ -199,13 +233,52 @@ const driver = [
 ]
 
 const drivers = () => {
-  return driver.map((item) => item.name) 
+  return driver.map((item) => item.name)
 }
 
 function handleSelectDriver(value) {
   selectDriver.value = value
 }
 
+const searchTerm = ref('')
+
+const filteredCars = computed(() => {
+  const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
+  return cars.filter((car) => {
+    return (
+      car.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  })
+})
+
+//pagination
+const currentPage = ref(1)
+
+const pageSize = 3
+
+const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
+
+const paginatedCars = computed(() => {
+  const startIndex = (currentPage.value - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  return filteredCars.value.slice(startIndex, endIndex)
+})
+
+function goToPage(page) {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+  }
+}
+
+function goToPreviousPage() {
+  goToPage(currentPage.value - 1)
+}
+
+function goToNextPage() {
+  goToPage(currentPage.value + 1)
+}
 </script>
 
 <style lang="scss">

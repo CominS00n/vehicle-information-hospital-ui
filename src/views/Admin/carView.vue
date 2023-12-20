@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="car in filteredCars" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ car.id }}</td>
             <td>{{ car.type }}</td>
             <td>{{ car.brand }}</td>
@@ -52,6 +52,24 @@
           </tr>
         </tfoot>
       </table>
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
+        <button
+          @click="goToPreviousPage"
+          :disabled="currentPage === 1"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
+        </button>
+        <span class="text-sm">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+          @click="goToNextPage"
+          :disabled="currentPage === totalPages"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
+        </button>
+      </div>
     </div>
   </TransitionRoot>
 
@@ -94,11 +112,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import textinput from '@/components/textinput/index.vue'
 import { cars } from '@/constant/example-table'
-import Icon from '@/components/Icon/index.vue'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
+
+import Icon from '@/components/Icon/index.vue'
+import textinput from '@/components/textinput/index.vue'
 
 const toast = useToast()
 
@@ -164,4 +183,31 @@ const filteredCars = computed(() => {
     )
   })
 })
+
+//pagination
+const currentPage = ref(1)
+
+const pageSize = 3
+
+const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
+
+const paginatedCars = computed(() => {
+  const startIndex = (currentPage.value - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  return filteredCars.value.slice(startIndex, endIndex)
+})
+
+function goToPage(page) {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+  }
+}
+
+function goToPreviousPage() {
+  goToPage(currentPage.value - 1)
+}
+
+function goToNextPage() {
+  goToPage(currentPage.value + 1)
+}
 </script>
