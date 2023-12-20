@@ -9,7 +9,7 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <h1 class="text-2xl">ตารางการใช้รถ</h1>
+    <h1 class="text-2xl">รายงานการใช้รถ</h1>
     <hr class="my-4 lg:my-6" />
     <div class="flex justify-end">
       <textinput
