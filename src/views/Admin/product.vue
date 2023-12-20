@@ -46,7 +46,6 @@
       </table>
     </div>
   </TransitionRoot>
-  <p></p>
 </template>
 
 <script setup>

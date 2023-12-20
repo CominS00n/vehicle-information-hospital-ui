@@ -177,3 +177,62 @@ export const reports = [
     driver: 'นายสมชาย ใจดี',
   }
 ]
+
+export const carReservations = [
+  {
+    id: 1,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 2,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 3,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 4,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 5,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 6,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+  {
+    id: 7,
+    date: '2021-01-01',
+    driver: 'นายสมชาย ใจดี',
+    address: 'กรุงเทพมหานคร',
+    typeCar: 'รถพยาบาล',
+    licensePlate: 'กก 1234',
+  },
+]
