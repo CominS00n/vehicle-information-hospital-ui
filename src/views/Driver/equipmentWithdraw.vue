@@ -37,7 +37,7 @@
       <div>
         <textinput
           v-model="dateSelect"
-          type="datetime-local"
+          type="date"
           label="วันที่เบิกอุปกรณ์"
           placeholder=""
           disabled
@@ -55,7 +55,7 @@
           @click="submit"
           class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full font-normal"
         >
-         บันทึก
+          บันทึก
         </button>
       </div>
     </div>
@@ -72,10 +72,14 @@ import textinput from '@/components/textinput/index.vue'
 
 const selectCategory = ref('')
 const selectEquipment = ref('')
-const dateSelect = ref(new Date().toISOString().slice(0, 16))
+const dateSelect = ref(new Date().toISOString().substr(0, 10))
 const equipmentList = ref(['แปรงล้างรถ', 'น้ำยาล้างรถ', 'ผ้าเช็ดรถ'])
 // const category = ref(['อุปกรณ์ทางการแพทย์', 'อุปกรณ์ล้างรถ'])
 const toast = useToast()
+
+// const day = String(dateSelect.getDate()).padStart(2, '0')
+
+console.log(dateSelect)
 
 const submit = () => {
   if (selectCategory.value === '' || selectEquipment.value === '') {

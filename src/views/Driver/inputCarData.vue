@@ -93,15 +93,15 @@
         <div>
           <div class="divider text-slate-500">เวลา</div>
           <div class="grid gap-y-2 lg:flex gap-x-2">
-            <textinput v-model="time_in" label="ออก" class="w-full" />
-            <textinput v-model="time_out" label="เข้า" class="w-full" />
+            <textinput v-model="time_in" label="ออก" type="time" class="w-full" />
+            <textinput v-model="time_out" label="เข้า" type="time" class="w-full" />
           </div>
         </div>
         <div>
           <div class="divider text-slate-500">เลขไมล์</div>
           <div class="grid gap-y-2 lg:flex gap-x-2">
-            <textinput v-model="mileage_in" label="ออก" class="w-full" />
-            <textinput v-model="mileage_out" label="เข้า" class="w-full" />
+            <textinput v-model="mileage_in" label="ออก" type="number" class="w-full" disabled />
+            <textinput v-model="mileage_out" label="เข้า" type="number" class="w-full" placeholder="กรอกเลขไมล์หลังใช้งาน" />
           </div>
         </div>
       </div>
