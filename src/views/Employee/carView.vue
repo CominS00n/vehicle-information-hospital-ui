@@ -20,41 +20,44 @@
         v-model="searchTerm"
       />
     </div>
-    <div class="overflow-x-auto">
-      <table class="table">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- row 1 -->
-          <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
-            <td>{{ car.id }}</td>
-            <td>{{ car.type }}</td>
-            <td>{{ car.brand }}</td>
-            <td>{{ car.licensePlate }}</td>
-            <td>{{ car.lastChangeOil }}</td>
-            <td>{{ car.lastChangeBrake }}</td>
-            <td>
-              <!-- <button @click="openDetailModal = !openDetailModal">
-                <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
-              </button> -->
-              <button @click="deleteCar">
-                <Icon icon="heroicons-outline:trash" class="text-xl" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
+    <div>
+      <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ car.id }}</td>
+              <td>{{ car.type }}</td>
+              <td>{{ car.brand }}</td>
+              <td>{{ car.licensePlate }}</td>
+              <td>{{ car.lastChangeOil }}</td>
+              <td>{{ car.lastChangeBrake }}</td>
+              <td>
+                <!-- <button @click="openDetailModal = !openDetailModal">
+                  <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
+                </button> -->
+                <button @click="deleteCar">
+                  <Icon icon="heroicons-outline:trash" class="text-xl" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
       <!-- Pagination -->
-      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-between lg:justify-end items-center">
         <button
           @click="goToPreviousPage"
           :disabled="currentPage === 1"

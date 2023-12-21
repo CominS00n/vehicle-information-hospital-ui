@@ -18,7 +18,7 @@
           <Icon @click="type = 'password'" icon="heroicons-solid:eye" />
         </button>
       </div>
-      <div v-if="!password" class="absolute z-10 right-4">
+      <div v-if="icon !== ''" class="absolute z-10 right-4">
         <Icon @click="type = 'text'" :icon="`heroicons-solid:${icon}`" />
       </div>
     </div>

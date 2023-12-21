@@ -20,48 +20,50 @@
         v-model="searchTerm"
       />
     </div>
-    <div class="overflow-x-auto">
-      <table class="table">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- row 1 -->
-          <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
-            <td>{{ car.id }}</td>
-            <td>{{ car.type }}</td>
-            <td>{{ car.brand }}</td>
-            <td>{{ car.licensePlate }}</td>
-            <td>{{ car.mileage }}</td>
-            <td>
-              <div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div>
-            </td>
-            <td>
-              <div class="space-x-2">
-                <button
-                  class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal btn-sm"
-                  :disabled="car.status"
-                  @click="openReserveModal = true"
-                >
-                  จอง
-                </button>
-                <!-- <button class="btn btn-primary btn-sm">Delete</button> -->
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
+    <div>
+      <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ car.id }}</td>
+              <td>{{ car.type }}</td>
+              <td>{{ car.brand }}</td>
+              <td>{{ car.licensePlate }}</td>
+              <td>{{ car.mileage }}</td>
+              <td>
+                <div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div>
+              </td>
+              <td>
+                <div class="space-x-2">
+                  <button
+                    class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal btn-sm"
+                    :disabled="car.status"
+                    @click="openReserveModal = true"
+                  >
+                    จอง
+                  </button>
+                  <!-- <button class="btn btn-primary btn-sm">Delete</button> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
 
       <!-- Pagination -->
-      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-between lg:justify-end items-center">
         <button
           @click="goToPreviousPage"
           :disabled="currentPage === 1"
@@ -131,10 +133,10 @@
       </div>
     </div>
     <template #footer>
-      <div class="flex gap-x-2">
+      <div class="grid gap-y-2 lg:flex gap-x-2">
         <button
           @click="openReserveModal = !openReserveModal"
-          class="btn btn-outline w-32 font-normal"
+          class="btn btn-outline lg:w-32 font-normal"
         >
           ยกเลิก
         </button>

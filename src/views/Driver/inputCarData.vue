@@ -20,58 +20,62 @@
         v-model="searchTerm"
       />
     </div>
-    <div class="overflow-x-auto">
-      <table class="table">
-        <thead>
-          <tr>
-            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="car in paginatedCarReservation" class="hover:bg-slate-100 hover:shadow-md">
-            <td>{{ car.date }}</td>
-            <td>{{ car.driver }}</td>
-            <td>{{ car.address }}</td>
-            <td>{{ car.typeCar }}</td>
-            <td>{{ car.licensePlate }}</td>
-            <td>
-              <div class="space-x-2">
-                <button
-                  class="btn bg-[#099c3d] text-white w-32 hover:bg-[#099c3d] font-normal btn-sm"
-                  @click="openReportModal(car.id, car.date, car.driver, car.licensePlate)"
-                >
-                  กรอกข้อมูล
-                </button>
-                <!-- <button class="btn btn-primary btn-sm">Delete</button> -->
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
-      <!-- Pagination -->
-      <div v-if="totalPages > 1" class="flex gap-x-3 justify-end items-center">
-        <button
-          @click="goToPreviousPage"
-          :disabled="currentPage === 1"
-          class="border p-2 rounded-md hover:bg-gray-100"
-        >
-          <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
-        </button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button
-          @click="goToNextPage"
-          :disabled="currentPage === totalPages"
-          class="border p-2 rounded-md hover:bg-gray-100"
-        >
-          <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
-        </button>
+    <div>
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="car in paginatedCarReservation" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ car.date }}</td>
+              <td>{{ car.driver }}</td>
+              <td>{{ car.address }}</td>
+              <td>{{ car.typeCar }}</td>
+              <td>{{ car.licensePlate }}</td>
+              <td>
+                <div class="space-x-2">
+                  <button
+                    class="btn bg-[#099c3d] text-white w-32 hover:bg-[#099c3d] font-normal btn-sm"
+                    @click="openReportModal(car.id, car.date, car.driver, car.licensePlate)"
+                  >
+                    กรอกข้อมูล
+                  </button>
+                  <!-- <button class="btn btn-primary btn-sm">Delete</button> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
       </div>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="flex gap-x-3 justify-between lg:justify-end items-center">
+          <button
+            @click="goToPreviousPage"
+            :disabled="currentPage === 1"
+            class="border p-2 rounded-md hover:bg-gray-100"
+          >
+            <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
+          </button>
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          <button
+            @click="goToNextPage"
+            :disabled="currentPage === totalPages"
+            class="border p-2 rounded-md hover:bg-gray-100"
+          >
+            <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
+          </button>
+        </div>
     </div>
+
     <!--? Modal -->
     <n-modal
       v-model:show="openModal"
@@ -88,14 +92,14 @@
         <textinput v-model="licensePlateSelect" label="เลขทะเบียนรถ" disabled />
         <div>
           <div class="divider text-slate-500">เวลา</div>
-          <div class="flex gap-x-2">
+          <div class="grid gap-y-2 lg:flex gap-x-2">
             <textinput v-model="time_in" label="ออก" class="w-full" />
             <textinput v-model="time_out" label="เข้า" class="w-full" />
           </div>
         </div>
         <div>
           <div class="divider text-slate-500">เลขไมล์</div>
-          <div class="flex gap-x-2">
+          <div class="grid gap-y-2 lg:flex gap-x-2">
             <textinput v-model="mileage_in" label="ออก" class="w-full" />
             <textinput v-model="mileage_out" label="เข้า" class="w-full" />
           </div>
@@ -103,8 +107,8 @@
       </div>
 
       <template #footer>
-        <div class="flex gap-x-2">
-          <button @click="openModal = !openModal" class="btn btn-outline w-32 font-normal">
+        <div class="grid gap-y-2 lg:flex gap-x-2">
+          <button @click="openModal = !openModal" class="btn btn-outline lg:w-32 font-normal">
             ยกเลิก
           </button>
           <div class="w-full">

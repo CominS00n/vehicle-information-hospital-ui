@@ -21,7 +21,7 @@
       />
     </div>
     <!-- ? Table mobile  -->
-    <div class="lg:hidden">
+    <div class="xl:hidden">
       <div class="overflow-x-auto">
         <table class="table">
           <!-- head -->
@@ -78,7 +78,7 @@
     </div>
 
     <!-- ? Table full screen  -->
-    <div class="hidden lg:inline">
+    <div class="hidden xl:inline">
       <table class="table">
           <!-- head -->
           <thead>
