@@ -70,7 +70,7 @@ export const equipments = [
   {
     id: 3,
     name: 'แปรง',
-    amount: 2,
+    amount: 0,
     category: 'อุปกรณ์ล้างรถยนต์',
     detail: ''
   }

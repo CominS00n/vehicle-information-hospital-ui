@@ -33,9 +33,22 @@
           <tr v-for="equipment in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
             <td>{{ equipment.id }}</td>
             <td>{{ equipment.name }}</td>
-            <td>{{ equipment.amount }}</td>
+            <td>
+              <span v-if="equipment.amount <= 0">Out of stoke</span>
+              <span v-else> {{ equipment.amount }}</span>
+            </td>
             <td>{{ equipment.category }}</td>
             <td>{{ equipment.detail }}</td>
+            <td>
+              <div class="flex gap-x-2">
+                <button @click="openEditModal(equipment)">
+                  <Icon icon="heroicons-outline:pencil" class="w-8 h-8" />
+                </button>
+                <button @click="deleteEquipment">
+                  <Icon icon="heroicons-outline:trash" class="w-8 h-8" />
+                </button>
+              </div>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -64,6 +77,40 @@
         </button>
       </div>
     </div>
+
+    <!--? Modal -->
+    <n-modal
+      v-model:show="EditModal"
+      class="custom-card rounded-lg"
+      preset="card"
+      style="width: 600px"
+      title="เพิ่มจำนวนอุปกรณ์"
+      :bordered="false"
+      size="huge"
+    >
+      <div class="grid gap-3">
+        <textinput v-model="name" type="text" label="ชื่ออุปกรณ์" disabled />
+        <textinput v-model="category" type="text" label="หมวดหมู่" disabled />
+        <textinput v-model="amount" type="number" label="จำนวน" placeholder="กรอกจำนวน" />
+        <textinput v-model="detail" type="text" label="รายละเอียด" placeholder="กรอกรายละเอียด" />
+      </div>
+
+      <template #footer>
+        <div class="grid gap-y-2 lg:flex gap-x-2">
+          <button @click="EditModal = !EditModal" class="btn btn-outline lg:w-32 font-normal">
+            ยกเลิก
+          </button>
+          <div class="w-full">
+            <button
+              @click="submit"
+              class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
+            >
+              บันทึก
+            </button>
+          </div>
+        </div>
+      </template>
+    </n-modal>
   </TransitionRoot>
 </template>
 
@@ -71,9 +118,38 @@
 import { ref, computed } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
 import { equipments } from '@/constant/example-table'
+import { useToast } from 'vue-toastification'
 
 import textinput from '@/components/textinput/index.vue'
 import Icon from '@/components/Icon/index.vue'
+
+const toast = useToast()
+const EditModal = ref(false)
+const name = ref('')
+const category = ref('')
+const amount = ref('')
+const detail = ref('')
+
+function openEditModal(equipment) {
+  EditModal.value = true
+  name.value = equipment.name
+  category.value = equipment.category
+  amount.value = equipment.amount
+  detail.value = equipment.detail
+}
+
+function submit() {
+  EditModal.value = false
+  toast.success('เพิ่มจำนวนอุปกรณ์สำเร็จ', {
+    timeout: 2000
+  })
+}
+
+function deleteEquipment() {
+  toast.error('ลบอุปกรณ์สำเร็จ', {
+    timeout: 2000
+  })
+}
 
 const headers = [
   {
@@ -95,6 +171,10 @@ const headers = [
   {
     key: 'detail',
     label: 'รายละเอียด'
+  },
+  {
+    key: 'action',
+    label: ''
   }
 ]
 

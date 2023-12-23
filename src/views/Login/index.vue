@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-y-5 lg:flex items-center h-screen lg:gap-x-5 justify-evenly">
+  <div class="grid gap-y-5 lg:flex items-center h-screen lg:gap-x-5 justify-evenly container mx-auto">
     <TransitionRoot
       appear
       :show="true"
