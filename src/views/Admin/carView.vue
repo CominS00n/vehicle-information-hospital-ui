@@ -41,7 +41,7 @@
                 <!-- <button @click="openDetailModal = !openDetailModal">
                   <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
                 </button> -->
-                <button @click="deleteCar">
+                <button @click="deleteCar" class="hover:bg-slate-300 p-2 rounded-full">
                   <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
               </td>

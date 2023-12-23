@@ -34,18 +34,23 @@
             <td>{{ equipment.id }}</td>
             <td>{{ equipment.name }}</td>
             <td>
-              <span v-if="equipment.amount <= 0">Out of stoke</span>
+              <span v-if="equipment.amount <= 0" class="badge bg-red-400 text-white"
+                >Out of Stock</span
+              >
               <span v-else> {{ equipment.amount }}</span>
             </td>
             <td>{{ equipment.category }}</td>
             <td>{{ equipment.detail }}</td>
             <td>
               <div class="flex gap-x-2">
-                <button @click="openEditModal(equipment)">
-                  <Icon icon="heroicons-outline:pencil" class="w-8 h-8" />
+                <button
+                  @click="openEditModal(equipment)"
+                  class="hover:bg-slate-300 p-2 rounded-full"
+                >
+                  <Icon icon="heroicons-outline:pencil" class="text-xl" />
                 </button>
-                <button @click="deleteEquipment">
-                  <Icon icon="heroicons-outline:trash" class="w-8 h-8" />
+                <button @click="deleteEquipment" class="hover:bg-slate-300 p-2 rounded-full">
+                  <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
               </div>
             </td>

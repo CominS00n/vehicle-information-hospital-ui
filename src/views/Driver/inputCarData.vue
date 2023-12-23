@@ -38,7 +38,7 @@
               <td>
                 <div class="space-x-2">
                   <button
-                    class="btn bg-[#099c3d] text-white w-32 hover:bg-[#099c3d] font-normal btn-sm"
+                    class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
                     @click="openReportModal(car.id, car.date, car.driver, car.licensePlate)"
                   >
                     กรอกข้อมูล

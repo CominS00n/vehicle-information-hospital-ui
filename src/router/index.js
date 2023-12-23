@@ -60,7 +60,12 @@ const router = createRouter({
           path: 'admin-register',
           name: 'admin-register',
           component: () => import('@/views/Login/Register/register.vue')
-        }
+        },
+        {
+          path: 'admin-car-use',
+          name: 'admin-car-use',
+          component: () => import('@/views/Admin/reportUseCars.vue')
+        },
       ]
     },
 
@@ -90,7 +95,12 @@ const router = createRouter({
           path: 'employee-withdraw',
           name: 'employee-withdraw',
           component: () => import('@/views/Employee/equipmentWithdraw.vue')
-        }
+        },
+        {
+          path: 'employee-car-use',
+          name: 'employee-car-use',
+          component: () => import('@/views/Employee/reportUseCars.vue')
+        },
       ]
     },
 

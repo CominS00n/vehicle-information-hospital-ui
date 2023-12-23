@@ -5,6 +5,11 @@ export const menuItems_Admin = [
     link: 'admin-car'
   },
   {
+    title: 'ตารางการใช้รถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'admin-car-use'
+  },
+  {
     title: 'จองรถ',
     icon: 'heroicons-outline:bookmark',
     link: 'admin-reserve'
@@ -37,6 +42,11 @@ export const menuItems_User = [
     title: 'ข้อมูลรถ',
     icon: 'heroicons-outline:truck',
     link: 'employee-car'
+  },
+  {
+    title: 'ตารางการใช้รถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'employee-car-use'
   },
   {
     title: 'จองรถ',
