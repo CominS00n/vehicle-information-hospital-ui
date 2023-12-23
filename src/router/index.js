@@ -87,16 +87,6 @@ const router = createRouter({
           component: () => import('@/views/Employee/carReserve.vue')
         },
         {
-          path: 'employee-product',
-          name: 'employee-product',
-          component: () => import('@/views/Employee/product.vue')
-        },
-        {
-          path: 'employee-withdraw',
-          name: 'employee-withdraw',
-          component: () => import('@/views/Employee/equipmentWithdraw.vue')
-        },
-        {
           path: 'employee-car-use',
           name: 'employee-car-use',
           component: () => import('@/views/Employee/reportUseCars.vue')
