@@ -39,7 +39,6 @@
               </button></router-link
             >
           </div>
-          {{ foundDriver }}
         </div>
       </div>
     </div>
