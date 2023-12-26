@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
 // import { Admin } from '@/constant/user'

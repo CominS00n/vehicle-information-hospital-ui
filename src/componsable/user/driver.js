@@ -3,7 +3,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
 export default function useDriver() {
   const driverDetails = ref([])

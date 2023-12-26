@@ -129,6 +129,12 @@ function addCar(data) {
     toast.success('เพิ่มข้อมูลรถเรียบร้อยแล้ว', {
       timeout: 2000
     })
+    data.typecar = ''
+    data.brand = ''
+    data.license_plate = ''
+    data.mileage = ''
+    data.oil = ''
+    data.brake = ''
   }
 }
 

@@ -39,6 +39,7 @@
               </button></router-link
             >
           </div>
+          {{ foundDriver }}
         </div>
       </div>
     </div>
@@ -46,13 +47,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
-import { Driver } from '@/constant/user'
+// import { Driver } from '@/constant/user'
 import { saveUserInfo } from '@/constant/accountLogin'
 
+import useDriver from '@/componsable/user/driver'
 import textinput from '@/components/textinput/index.vue'
+
+const { getDriverDetails, driverDetails } = useDriver()
+
+onMounted(() => {
+  getDriverDetails()
+})
 
 const toast = useToast()
 
@@ -66,20 +74,22 @@ const account = ref({
 })
 
 function login() {
-  const foundDriver = Driver.find(
-    (item) => item.Username === username.value && item.Password === password.value
+  const foundDriver = driverDetails.value.find(
+    (item) => item.username === username.value && item.password === password.value
   )
+  console.log(foundDriver)
 
   if (foundDriver) {
     account.value = foundDriver
     isLoggedIn.value = true
     saveUserInfo({
       username: username.value,
-      firstname: foundDriver.Fristname,
-      lastname: foundDriver.Lastname
+      firstname: foundDriver.first_name,
+      lastname: foundDriver.last_name
     })
     toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', { timeout: 2000 })
-  } else {
+  }
+  else {
     username.value = ''
     password.value = ''
     toast.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', { timeout: 2000 })
