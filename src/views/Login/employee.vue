@@ -46,13 +46,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
-import { Employee } from '@/constant/user'
+// import { Employee } from '@/constant/user'
 import { saveUserInfo } from '@/constant/accountLogin'
 
+import useEmployee from '@/componsable/user/employee'
 import textinput from '@/components/textinput/index.vue'
+
+const { getUserDetails, userDetails } = useEmployee()
+
+onMounted(() => {
+  getUserDetails()
+})
 
 const toast = useToast()
 
@@ -65,9 +72,10 @@ const account = ref({
   password: password
 })
 
+
 function login() {
-  const foundEmployee = Employee.find(
-    (item) => item.Username === username.value && item.Password === password.value
+  const foundEmployee = userDetails.value.find(
+    (item) => item.username === username.value && item.password === password.value
   )
 
   if (foundEmployee) {
@@ -75,8 +83,8 @@ function login() {
     isLoggedIn.value = true
     saveUserInfo({
       username: username.value,
-      firstname: foundEmployee.Fristname,
-      lastname: foundEmployee.Lastname
+      firstname: foundEmployee.first_name,
+      lastname: foundEmployee.last_name
     })
     toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', { timeout: 2000 })
   } else {

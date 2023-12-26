@@ -47,18 +47,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import { TransitionRoot } from '@headlessui/vue'
-import { Admin } from '@/constant/user'
+// import { Admin } from '@/constant/user'
 import { saveUserInfo } from '@/constant/accountLogin'
 
+import useAdmin from '@/componsable/user/admin'
 import textinput from '@/components/textinput/index.vue'
 
 const toast = useToast()
+const { adminDetails, getAdminDetails } = useAdmin()
+onMounted(() => {
+  getAdminDetails()
+})
 
-const username = ref('admin1')
-const password = ref('2sas0fsc0')
+const username = ref('Admin')
+const password = ref('asd0fa0sdf')
 const isLoggedIn = ref(false)
 
 const account = ref({
@@ -67,8 +72,8 @@ const account = ref({
 })
 
 function login() {
-  const foundAdmin = Admin.find(
-    (item) => item.Username === username.value && item.Password === password.value
+  const foundAdmin = adminDetails.value.find(
+    (item) => item.username === username.value && item.password === password.value
   )
 
   if (foundAdmin) {
@@ -76,8 +81,8 @@ function login() {
     isLoggedIn.value = true
     saveUserInfo({
       username: username.value,
-      firstname: foundAdmin.Fristname,
-      lastname: foundAdmin.Lastname
+      firstname: foundAdmin.first_name,
+      lastname: foundAdmin.last_name,
     })
     toast.success('เข้าสู่ระบบเรียบร้อยแล้ว', { timeout: 2000 })
   } else {

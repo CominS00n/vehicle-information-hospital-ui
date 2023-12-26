@@ -30,18 +30,17 @@
           </thead>
           <tbody>
             <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
-              <td>{{ car.id }}</td>
-              <td>{{ car.type }}</td>
+              <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
-              <td>{{ car.licensePlate }}</td>
+              <td>{{ car.license_plate }}</td>
               <td>{{ car.mileage }}</td>
-              <td>{{ car.lastChangeOil }}</td>
-              <td>{{ car.lastChangeBrake }}</td>
+              <td>{{ car.oil }}</td>
+              <td>{{ car.brake }}</td>
               <td>
                 <!-- <button @click="openDetailModal = !openDetailModal">
                   <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
                 </button> -->
-                <button @click="deleteCar" class="hover:bg-slate-300 p-2 rounded-full">
+                <button @click="deleteCar(car.id)" class="hover:bg-slate-300 p-2 rounded-full">
                   <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
               </td>
@@ -76,8 +75,8 @@
     </div>
   </TransitionRoot>
 
-  <!--? Modal -->
-  <n-modal
+  <!--? Modal edit car -->
+  <!-- <n-modal
     v-model:show="openDetailModal"
     class="custom-card rounded-lg"
     preset="card"
@@ -110,27 +109,35 @@
         </div>
       </div>
     </template>
-  </n-modal>
+  </n-modal> -->
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { cars } from '@/constant/example-table'
+import { ref, computed, onMounted } from 'vue'
+// import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
 
+import useCar from '@/componsable/car/cars'
 import Icon from '@/components/Icon/index.vue'
 import textinput from '@/components/textinput/index.vue'
+import Swal from 'sweetalert2'
+
+const { getCarDetails, carDetails, removeCar } = useCar()
+
+onMounted(() => {
+  getCarDetails()
+})
 
 const toast = useToast()
 
-const openDetailModal = ref(false)
+// const openDetailModal = ref(false)
 
 const headers = [
-  {
-    key: 'id',
-    title: 'ไอดี'
-  },
+  // {
+  //   key: 'id',
+  //   title: 'ไอดี'
+  // },
   {
     key: 'type',
     title: 'ประเภท'
@@ -161,28 +168,43 @@ const headers = [
   }
 ]
 
-async function submit() {
-  toast.success('บันทึกข้อมูลสำเร็จ', {
-    timeout: 2000
-  })
-  openDetailModal.value = !openDetailModal.value
-}
+// async function submit() {
+//   toast.success('บันทึกข้อมูลสำเร็จ', {
+//     timeout: 2000
+//   })
+//   openDetailModal.value = !openDetailModal.value
+// }
 
-async function deleteCar() {
-  toast.error('ลบข้อมูลสำเร็จ', {
-    timeout: 2000
+async function deleteCar(id) {
+  Swal.fire({
+    title: 'คุณต้องการลบข้อมูลนี้หรือไม่?',
+    text: "หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#099c3d',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'ใช่, ลบเลย!',
+    cancelButtonText: 'ยกเลิก'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      removeCar(id)
+      toast.error('ลบข้อมูลสำเร็จ', {
+        timeout: 2000
+      })
+    }
   })
+  
 }
 
 const searchTerm = ref('')
 
 const filteredCars = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return cars.filter((car) => {
+  return carDetails.value.filter((car) => {
     return (
-      car.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.typecar.toLowerCase().includes(lowerCaseSearchTerm) ||
       car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+      car.license_plate.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
@@ -190,7 +212,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 3
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 
