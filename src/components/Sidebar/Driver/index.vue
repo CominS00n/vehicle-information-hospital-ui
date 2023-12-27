@@ -110,9 +110,9 @@
           class="mt-1 z-[1] p-2 shadow-md menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
         >
           <li>
-            <router-link to="/" class="w-full"
-              ><Icon icon="heroicons-outline:arrow-left-on-rectangle" />ออกจากระบบ</router-link
-            >
+            <button class="w-full" @click="logout">
+              <Icon icon="heroicons-outline:arrow-left-on-rectangle" />ออกจากระบบ
+            </button>
           </li>
         </ul>
       </div>
@@ -128,10 +128,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { RouterView, RouterLink } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { menuItems_Driver } from '@/constant/data.js'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { getUserInfo } from '@/constant/accountLogin'
+import { getUserInfo, removeUserInfo } from '@/constant/accountLogin'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 import Navmenu from './Navmenu.vue'
@@ -139,4 +139,9 @@ import Icon from '@/components/Icon/index.vue'
 
 const sidebarOpen = ref(false)
 const account = getUserInfo()
+
+const logout = () => {
+  removeUserInfo()
+  window.location.href = '/'
+}
 </script>

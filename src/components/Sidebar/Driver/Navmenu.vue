@@ -27,7 +27,9 @@
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             />
           </div> -->
-          <div class="h-8 w-8 rounded-full bg-[#099c3d] text-white flex justify-center items-center">
+          <div
+            class="h-8 w-8 rounded-full bg-[#099c3d] text-white flex justify-center items-center"
+          >
             {{ account.firstname[0] }}{{ account.lastname[0] }}
           </div>
           <span class="sr-only">Your profile</span>
@@ -40,9 +42,9 @@
         class="mb-1 z-[1] p-2 shadow-md menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
       >
         <li>
-          <router-link to="/" class="w-full"
-            ><Icon icon="heroicons-outline:arrow-left-on-rectangle" />ออกจากระบบ</router-link
-          >
+          <button class="w-full" @click="logout">
+            <Icon icon="heroicons-outline:arrow-left-on-rectangle" />ออกจากระบบ
+          </button>
         </li>
       </ul>
     </div>
@@ -51,7 +53,7 @@
 
 <script>
 import Icon from '@/components/Icon/index.vue'
-import { getUserInfo } from '@/constant/accountLogin'
+import { getUserInfo, removeUserInfo } from '@/constant/accountLogin'
 
 export default {
   data() {
@@ -78,6 +80,12 @@ export default {
     items: { type: Array, required: true },
     childrenLinks: { type: Array, default: null },
     disable: { type: Boolean, default: true }
+  },
+  methods: {
+    logout() {
+      removeUserInfo()
+      this.$router.push('/')
+    }
   }
 }
 </script>

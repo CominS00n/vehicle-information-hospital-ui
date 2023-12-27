@@ -72,6 +72,8 @@
           <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
         </button>
       </div>
+      {{ user }}
+      {{ authenticated }}
     </div>
   </TransitionRoot>
 

@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { isAuthenticated } from '@/constant/accountLogin'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +20,7 @@ const router = createRouter({
     {
       path: '/login-admin',
       name: 'login-admin',
-      component: () => import('@/views/Login/admin.vue'),
+      component: () => import('@/views/Login/admin.vue')
     },
     {
       path: '/login-driver',
@@ -28,8 +32,16 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin-layout',
-      redirect: "/admin/admin-car",
+      redirect: '/admin/admin-car',
       component: () => import('@/layout/Admin/index.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          toast.error('กรุณาเข้าสู่ระบบ', { timeout: 2000 })
+          next({ name: 'login-admin' })
+        }
+      },
       children: [
         {
           path: 'admin-car',
@@ -65,7 +77,7 @@ const router = createRouter({
           path: 'admin-car-use',
           name: 'admin-car-use',
           component: () => import('@/views/Admin/reportUseCars.vue')
-        },
+        }
       ]
     },
 
@@ -73,8 +85,16 @@ const router = createRouter({
     {
       path: '/employee',
       name: 'employee-layout',
-      redirect: "/employee/employee-car",
+      redirect: '/employee/employee-car',
       component: () => import('@/layout/User/index.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          toast.error('กรุณาเข้าสู่ระบบ', { timeout: 2000 })
+          next({ name: 'login-employee' })
+        }
+      },
       children: [
         {
           path: 'employee-car',
@@ -90,16 +110,24 @@ const router = createRouter({
           path: 'employee-car-use',
           name: 'employee-car-use',
           component: () => import('@/views/Employee/reportUseCars.vue')
-        },
+        }
       ]
     },
 
-     // driver page
-     {
+    // driver page
+    {
       path: '/driver',
       name: 'driver-layout',
-      redirect: "/driver/driver-car",
+      redirect: '/driver/driver-car',
       component: () => import('@/layout/Driver/index.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isAuthenticated()) {
+          next()
+        } else {
+          toast.error('กรุณาเข้าสู่ระบบ', { timeout: 2000 })
+          next({ name: 'login-driver' })
+        }
+      },
       children: [
         {
           path: 'driver-car',
@@ -115,16 +143,16 @@ const router = createRouter({
           path: 'driver-input-data',
           name: 'driver-input-data',
           component: () => import('@/views/Driver/inputCarData.vue')
-        },
+        }
       ]
     },
 
     // 404 page
     {
-      path: "/:catchAll(.*)",
-      name: "404",
-      component: () => import("@/views/404.vue"),
-    },
+      path: '/:catchAll(.*)',
+      name: '404',
+      component: () => import('@/views/404.vue')
+    }
   ]
 })
 

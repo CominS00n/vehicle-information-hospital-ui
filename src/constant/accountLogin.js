@@ -10,3 +10,12 @@ export function saveUserInfo(info) {
 export function getUserInfo() {
   return userInfo;
 }
+
+export function removeUserInfo() {
+  userInfo = {};
+  localStorage.removeItem(storageKey);
+}
+
+export function isAuthenticated() {
+  return Object.keys(userInfo).length !== 0;
+}
