@@ -23,7 +23,6 @@ export default function useCar() {
 
   const addCarDetail = async (data) => {
     try {
-      // await axios.post("http://127.0.0.1:8000/api/add_car_details", value);
       await axios({
         method: 'post',
         url: 'add_car_details',
@@ -48,9 +47,6 @@ export default function useCar() {
   }
 
   const removeCar = async (id) => {
-    // if (window.confirm('Are you sure you want to delete this user?')) {
-    //   return
-    // }
     await axios.delete(`add_car_details/${id}`)
     await getCarDetails()
   }

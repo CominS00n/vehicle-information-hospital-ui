@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
+const api_path = ref('driver_details')
+
 export default function useDriver() {
   const driverDetails = ref([])
   const driverDetail = ref([])
@@ -12,12 +14,12 @@ export default function useDriver() {
   const router = useRouter()
 
   const getDriverDetails = async () => {
-    const response = await axios.get('driver_details')
+    const response = await axios.get(api_path.value)
     driverDetails.value = response.data
   }
 
   const getDriverDetail = async (id) => {
-    const response = await axios.get(`driver_details/${id}`)
+    const response = await axios.get(`${api_path.value}/${id}`)
     driverDetail.value = response.data
   }
 
@@ -25,29 +27,28 @@ export default function useDriver() {
     try {
       await axios({
         method: 'post',
-        url: 'driver_details',
+        url: api_path.value,
         data: data
       })
       await router.push({ name: 'admin-register' })
     } catch (err) {
-      errors.value = err.response.data.errors
+      if (err.response.status === 422) {
+        errors.value = err.response.data.errors
+      }
     }
   }
 
-  const updateAdminDetail = async (id) => {
+  const updateDriverDetail = async (id) => {
     try {
-      await axios.put(`driver_details/${id}`, driverDetail.value)
+      await axios.put(`${api_path.value}/${id}`, driverDetail.value)
       await router.push({ name: 'admin-register' })
     } catch (err) {
       errors.value = err.response.data.errors
     }
   }
 
-  const deleteAdminDetail = async (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      return
-    }
-    await axios.delete(`driver_details/${id}`)
+  const deleteDriverDetail = async (id) => {
+    await axios.delete(`${api_path.value}/${id}`)
     await getDriverDetails()
   }
   return {
@@ -57,7 +58,7 @@ export default function useDriver() {
     getDriverDetails,
     getDriverDetail,
     createDriverDetail,
-    updateAdminDetail,
-    deleteAdminDetail
+    updateDriverDetail,
+    deleteDriverDetail
   }
 }

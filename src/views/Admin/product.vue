@@ -31,25 +31,28 @@
         <tbody>
           <!-- row 1 -->
           <tr v-for="equipment in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
-            <td>{{ equipment.id }}</td>
-            <td>{{ equipment.name }}</td>
+            <!-- <td>{{ equipment.id }}</td> -->
+            <td>{{ equipment.namedevice }}</td>
             <td>
               <span v-if="equipment.amount <= 0" class="badge bg-red-400 text-white"
                 >Out of Stock</span
               >
               <span v-else> {{ equipment.amount }}</span>
             </td>
-            <td>{{ equipment.category }}</td>
+            <td>{{ equipment.group }}</td>
             <td>{{ equipment.detail }}</td>
             <td>
               <div class="flex gap-x-2">
                 <button
-                  @click="openEditModal(equipment)"
+                  @click="openEditModal(equipment.id)"
                   class="hover:bg-slate-300 p-2 rounded-full"
                 >
                   <Icon icon="heroicons-outline:pencil" class="text-xl" />
                 </button>
-                <button @click="deleteEquipment" class="hover:bg-slate-300 p-2 rounded-full">
+                <button
+                  @click="deleteEquipment(equipment.id)"
+                  class="hover:bg-slate-300 p-2 rounded-full"
+                >
                   <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
               </div>
@@ -94,10 +97,20 @@
       size="huge"
     >
       <div class="grid gap-3">
-        <textinput v-model="name" type="text" label="ชื่ออุปกรณ์" disabled />
-        <textinput v-model="category" type="text" label="หมวดหมู่" disabled />
-        <textinput v-model="amount" type="number" label="จำนวน" placeholder="กรอกจำนวน" />
-        <textinput v-model="detail" type="text" label="รายละเอียด" placeholder="กรอกรายละเอียด" />
+        <textinput v-model="equipmentDetail.namedevice" type="text" label="ชื่ออุปกรณ์" disabled />
+        <textinput v-model="equipmentDetail.group" type="text" label="หมวดหมู่" disabled />
+        <textinput
+          v-model="equipmentDetail.amount"
+          type="number"
+          label="จำนวน"
+          placeholder="กรอกจำนวน"
+        />
+        <textinput
+          v-model="equipmentDetail.detail"
+          type="text"
+          label="รายละเอียด"
+          placeholder="กรอกรายละเอียด"
+        />
       </div>
 
       <template #footer>
@@ -107,7 +120,7 @@
           </button>
           <div class="w-full">
             <button
-              @click="submit"
+              @click.passive="submit(equipmentDetail.id)"
               class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
             >
               บันทึก
@@ -120,47 +133,96 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
-import { equipments } from '@/constant/example-table'
+// import { equipments } from '@/constant/example-table'
 import { useToast } from 'vue-toastification'
 
+import useEquipment from '@/componsable/equipment/equipment'
 import textinput from '@/components/textinput/index.vue'
 import Icon from '@/components/Icon/index.vue'
+import Swal from 'sweetalert2'
 
+const {
+  getEquipmentDetails,
+  equipmentDetails,
+  deleteEquipmentDetails,
+  updateEquipmentDetails,
+  getEquipmentDetail,
+  equipmentDetail
+} = useEquipment()
 const toast = useToast()
 const EditModal = ref(false)
-const name = ref('')
-const category = ref('')
-const amount = ref('')
-const detail = ref('')
+const data = reactive({
+  id: '',
+  namedevice: '',
+  amount: '',
+  group: '',
+  detail: ''
+})
 
-function openEditModal(equipment) {
+onMounted(() => {
+  getEquipmentDetails()
+})
+
+function openEditModal(id) {
   EditModal.value = true
-  name.value = equipment.name
-  category.value = equipment.category
-  amount.value = equipment.amount
-  detail.value = equipment.detail
+  getEquipmentDetail(id)
+  data.id = equipmentDetail.value.id
+  data.namedevice = equipmentDetail.value.namedevice
+  data.amount = equipmentDetail.value.amount
+  data.group = equipmentDetail.value.group
+  data.detail = equipmentDetail.value.detail
 }
-
-function submit() {
+function submit(id) {
   EditModal.value = false
-  toast.success('เพิ่มจำนวนอุปกรณ์สำเร็จ', {
-    timeout: 2000
-  })
+  if (
+    !data.namedevice ||
+    !data.amount ||
+    !data.group ||
+    !data.detail
+  ) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
+      timeout: 2000
+    })
+    return
+  } else {
+    updateEquipmentDetails(id)
+    toast.success('เพิ่มอุปกรณ์สำเร็จ', {
+      timeout: 2000
+    })
+    data.namedevice = ''
+    data.amount = ''
+    data.group = ''
+    data.detail = ''
+  }
 }
 
-function deleteEquipment() {
-  toast.error('ลบอุปกรณ์สำเร็จ', {
-    timeout: 2000
+function deleteEquipment(id) {
+  Swal.fire({
+    title: 'คุณต้องการลบข้อมูลนี้หรือไม่?',
+    text: 'หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#099c3d',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'ใช่, ลบเลย!',
+    cancelButtonText: 'ยกเลิก'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteEquipmentDetails(id)
+      toast.error('ลบข้อมูลสำเร็จ', {
+        timeout: 2000
+      })
+    }
   })
 }
 
 const headers = [
-  {
-    key: 'id',
-    label: 'ไอดี'
-  },
+  // {
+  //   key: 'id',
+  //   label: 'ไอดี'
+  // },
   {
     key: 'name',
     label: 'ชื่ออุปกรณ์'
@@ -170,7 +232,7 @@ const headers = [
     label: 'จำนวน'
   },
   {
-    key: 'category',
+    key: 'group',
     label: 'หมวดหมู่'
   },
   {
@@ -187,10 +249,10 @@ const searchTerm = ref('')
 
 const filteredEquipments = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return equipments.filter((car) => {
+  return equipmentDetails.value.filter((equipment) => {
     return (
-      car.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.category.toLowerCase().includes(lowerCaseSearchTerm)
+      equipment.namedevice.toLowerCase().includes(lowerCaseSearchTerm) ||
+      equipment.group.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
@@ -198,7 +260,7 @@ const filteredEquipments = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 2
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredEquipments.value.length / pageSize))
 

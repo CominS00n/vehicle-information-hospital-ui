@@ -202,7 +202,7 @@ export default {
           })
           this.cancel()
         } else if (this.textAlert === 'พนักงานขับรถ') {
-          this.createUserDetail(value)
+          this.createDriverDetail(value)
           this.toast.success(`สมัครสมาชิก ${this.textAlert} เรียบร้อยแล้ว`, {
             timeout: 2000
           })

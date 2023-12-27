@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
+const api_path = ref('admin_details')
+
 export default function useAdmin() {
   const adminDetails = ref([])
   const adminDetail = ref([])
@@ -12,12 +14,12 @@ export default function useAdmin() {
   const router = useRouter()
 
   const getAdminDetails = async () => {
-    const response = await axios.get('admin_details')
+    const response = await axios.get(api_path.value)
     adminDetails.value = response.data
   }
 
   const getAdminDetail = async (id) => {
-    const response = await axios.get(`admin_details/${id}`)
+    const response = await axios.get(`${api_path.value}/${id}`)
     adminDetail.value = response.data
   }
 
@@ -25,18 +27,20 @@ export default function useAdmin() {
     try {
       await axios({
         method: 'post',
-        url: 'admin_details',
+        url: api_path.value,
         data: data
       })
       await router.push({ name: 'admin-register' })
     } catch (err) {
-      errors.value = err.response.data.errors
+      if (err.response.status === 422) {
+        errors.value = err.response.data.errors
+      }
     }
   }
 
   const updateAdminDetail = async (id) => {
     try {
-      await axios.put(`admin_details/${id}`, adminDetail.value)
+      await axios.put(`${api_path.value}/${id}`, adminDetail.value)
       await router.push({ name: 'admin-register' })
     } catch (err) {
       errors.value = err.response.data.errors
@@ -44,10 +48,7 @@ export default function useAdmin() {
   }
 
   const deleteAdminDetail = async (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      return
-    }
-    await axios.delete(`admin_details/${id}`)
+    await axios.delete(`${api_path.value}/${id}`)
     await getAdminDetails()
   }
   return {
