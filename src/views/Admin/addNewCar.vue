@@ -108,7 +108,8 @@ const data = reactive({
   license_plate: '',
   mileage: '',
   oil: '',
-  brake: ''
+  brake: '',
+  status: 'Unreserve'
 })
 
 function addCar(data) {

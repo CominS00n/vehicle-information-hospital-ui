@@ -23,26 +23,25 @@
     <div>
       <div class="overflow-x-auto">
         <table class="table">
-          <!-- head -->
           <thead>
             <tr>
-              <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+              <th v-for="header in headers" class="text-base">{{ header.title }}</th>
             </tr>
           </thead>
           <tbody>
-            <!-- row 1 -->
-            <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
-              <td>{{ car.id }}</td>
-              <td>{{ car.type }}</td>
+            <tr v-for="(car, i) in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ i + 1 }}</td>
+              <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
-              <td>{{ car.licensePlate }}</td>
-              <td>{{ car.lastChangeOil }}</td>
-              <td>{{ car.lastChangeBrake }}</td>
+              <td>{{ car.license_plate }}</td>
+              <td>{{ car.mileage }}</td>
+              <td>{{ car.oil }}</td>
+              <td>{{ car.brake }}</td>
               <td>
-                <!-- <button @click="openDetailModal = !openDetailModal">
+                <button @click="openDetailModal = !openDetailModal">
                   <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
-                </button> -->
-                <button @click="deleteCar" class="hover:bg-slate-300 p-2 rounded-full">
+                </button>
+                <button @click="deleteCar(car.id)" class="hover:bg-slate-300 p-2 rounded-full">
                   <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
               </td>
@@ -77,7 +76,7 @@
     </div>
   </TransitionRoot>
 
-  <!--? Modal -->
+  <!--? Modal edit car -->
   <n-modal
     v-model:show="openDetailModal"
     class="custom-card rounded-lg"
@@ -115,12 +114,21 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import textinput from '@/components/textinput/index.vue'
-import { cars } from '@/constant/example-table'
-import Icon from '@/components/Icon/index.vue'
+import { ref, computed, onMounted } from 'vue'
+// import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
+
+import useCar from '@/componsable/car/cars'
+import Icon from '@/components/Icon/index.vue'
+import textinput from '@/components/textinput/index.vue'
+import Swal from 'sweetalert2'
+
+const { getCarDetails, carDetails, removeCar } = useCar()
+
+onMounted(() => {
+  getCarDetails()
+})
 
 const toast = useToast()
 
@@ -129,44 +137,62 @@ const openDetailModal = ref(false)
 const headers = [
   {
     key: 'id',
-    label: 'ไอดี'
+    title: 'ลำดับ'
   },
   {
     key: 'type',
-    label: 'ประเภท'
+    title: 'ประเภท'
   },
   {
     key: 'brand',
-    label: 'แบรนด์'
+    title: 'แบรนด์'
   },
   {
     key: 'licensePlate',
-    label: 'เลขทะเบียน'
+    title: 'เลขทะเบียน'
+  },
+  {
+    key: 'mileage',
+    title: 'เลขไมล์'
   },
   {
     key: 'lastChangeOil',
-    label: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
+    title: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
   },
   {
     key: 'lastChangeBrake',
-    label: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
+    title: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
   },
   {
     key: 'action',
-    label: ''
+    title: ''
   }
 ]
 
-async function submit() {
-  toast.success('บันทึกข้อมูลสำเร็จ', {
-    timeout: 2000
-  })
-  openDetailModal.value = !openDetailModal.value
-}
+// async function submit() {
+//   toast.success('บันทึกข้อมูลสำเร็จ', {
+//     timeout: 2000
+//   })
+//   openDetailModal.value = !openDetailModal.value
+// }
 
-async function deleteCar() {
-  toast.error('ลบข้อมูลสำเร็จ', {
-    timeout: 2000
+async function deleteCar(id) {
+  Swal.fire({
+    title: 'คุณต้องการลบข้อมูลนี้หรือไม่?',
+    text: 'หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#099c3d',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'ใช่, ลบเลย!',
+    cancelButtonText: 'ยกเลิก'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      removeCar(id)
+      toast.error('ลบข้อมูลสำเร็จ', {
+        timeout: 2000
+      })
+    }
   })
 }
 
@@ -174,11 +200,11 @@ const searchTerm = ref('')
 
 const filteredCars = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return cars.filter((car) => {
+  return carDetails.value.filter((car) => {
     return (
-      car.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.typecar.toLowerCase().includes(lowerCaseSearchTerm) ||
       car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+      car.license_plate.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
@@ -186,7 +212,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 3
+const pageSize = 7
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

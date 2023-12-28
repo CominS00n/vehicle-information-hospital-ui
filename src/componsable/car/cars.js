@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
+const api_path = ref('add_car_details')
+
 export default function useCar() {
   const carDetails = ref([])
   const carDetail = ref([])
@@ -37,13 +39,13 @@ export default function useCar() {
   }
 
   const updateCar = async (id) => {
-      try
-      {
-          await axios.put(`add_car_details/${id}`, carDetail.value);
-          await router.push({ name: "admin-add-car" });
-      } catch (err) {
-          errors.value = err.response.data.errors;
-      }
+    try {
+      await axios.put(`${api_path.value}/${id}`, carDetail.value)
+      await router.push({ name: 'admin-car' })
+      await router.push({ name: 'admin-reserve' })
+    } catch (err) {
+      errors.value = err.response.data.errors
+    }
   }
 
   const removeCar = async (id) => {

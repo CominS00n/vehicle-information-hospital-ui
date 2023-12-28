@@ -167,21 +167,17 @@ onMounted(() => {
 
 function openEditModal(id) {
   EditModal.value = true
-  getEquipmentDetail(id)
-  data.id = equipmentDetail.value.id
-  data.namedevice = equipmentDetail.value.namedevice
-  data.amount = equipmentDetail.value.amount
-  data.group = equipmentDetail.value.group
-  data.detail = equipmentDetail.value.detail
+  getEquipmentDetail(id).then(() => {
+    data.id = equipmentDetail.value.id
+    data.namedevice = equipmentDetail.value.namedevice
+    data.amount = equipmentDetail.value.amount
+    data.group = equipmentDetail.value.group
+    data.detail = equipmentDetail.value.detail
+  })
 }
 function submit(id) {
   EditModal.value = false
-  if (
-    !data.namedevice ||
-    !data.amount ||
-    !data.group ||
-    !data.detail
-  ) {
+  if (!data.namedevice || !data.amount || !data.group || !data.detail) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
       timeout: 2000
     })

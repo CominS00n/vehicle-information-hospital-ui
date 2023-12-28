@@ -29,7 +29,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(car, i) in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ i + 1 }}</td>
               <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
               <td>{{ car.license_plate }}</td>
@@ -72,8 +73,6 @@
           <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
         </button>
       </div>
-      {{ user }}
-      {{ authenticated }}
     </div>
   </TransitionRoot>
 
@@ -136,10 +135,10 @@ const toast = useToast()
 // const openDetailModal = ref(false)
 
 const headers = [
-  // {
-  //   key: 'id',
-  //   title: 'ไอดี'
-  // },
+  {
+    key: 'id',
+    title: 'ลำดับ'
+  },
   {
     key: 'type',
     title: 'ประเภท'
@@ -180,7 +179,7 @@ const headers = [
 async function deleteCar(id) {
   Swal.fire({
     title: 'คุณต้องการลบข้อมูลนี้หรือไม่?',
-    text: "หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!",
+    text: 'หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#099c3d',
@@ -195,7 +194,6 @@ async function deleteCar(id) {
       })
     }
   })
-  
 }
 
 const searchTerm = ref('')
