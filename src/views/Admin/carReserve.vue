@@ -289,7 +289,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 7
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

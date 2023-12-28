@@ -31,19 +31,26 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="car in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
-              <td>{{ car.id }}</td>
-              <td>{{ car.type }}</td>
+            <tr v-for="(car, i) in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ i + 1 }}</td>
+              <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
+              <td>{{ car.license_plate }}</td>
+              <td>{{ car.mileage }}</td>
               <td>
-                <div v-if="car.status" class="badge bg-[#099c3d] text-white w-18 text-xs">จอง</div>
+                <div
+                  v-if="car.status === 'Reserve'"
+                  class="badge bg-[#099c3d] text-white w-18 text-xs"
+                >
+                  จอง
+                </div>
               </td>
               <td>
                 <div class="space-x-2">
                   <button
                     class="btn bg-[#099c3d] text-white w-24 hover:bg-[#099c3d] font-normal btn-sm"
-                    :disabled="car.status"
-                    @click="openReserveModal = true"
+                    :disabled="car.status === 'Reserve'"
+                    @click="openReserveModal(car.id)"
                   >
                     จอง
                   </button>
@@ -59,6 +66,7 @@
           </tfoot>
         </table>
       </div>
+
       <!-- Pagination -->
       <div v-if="totalPages > 1" class="flex gap-x-3 justify-between lg:justify-end items-center">
         <button
@@ -82,7 +90,7 @@
 
   <!--? Modal -->
   <n-modal
-    v-model:show="openReserveModal"
+    v-model:show="reserveModal"
     class="custom-card rounded-lg"
     preset="card"
     style="width: 600px"
@@ -93,10 +101,18 @@
     <div class="grid gap-4">
       <div>
         <textinput
-          v-model="date"
+          v-model="data.booking_date"
           type="date"
           label="วันที่ต้องการจอง"
           placeholder="กรอกวันที่ต้องการจอง"
+        />
+      </div>
+      <div>
+        <textinput
+          v-model="data.time"
+          type="time"
+          label="เวลาต้องการจอง"
+          placeholder="กรอกเวลาต้องการจอง"
         />
       </div>
       <div>
@@ -108,38 +124,41 @@
         />
       </div>
       <div>
-        <textinput v-model="address" label="สถานที่" placeholder="กรอกสถานที่" />
+        <textinput v-model="data.location" label="สถานที่" placeholder="กรอกสถานที่" />
       </div>
       <div>
-        <Select
-          @select="handleSelectTypeCars"
-          :menuLists="typeCars"
-          placeholder="เลือกประเภทของรถ"
+        <textinput
+          v-model="carDetail.typecar"
           label="ประเภทของรถ"
+          placeholder="กรอกประเภทของรถ"
+          disabled
         />
       </div>
       <div>
         <textinput
-          v-model="licensePlate"
+          v-model="carDetail.license_plate"
           label="หมายเลขทะเบียนรถ"
           placeholder="กรอกหมายเลขทะเบียนรถ"
+          disabled
         />
       </div>
       <div>
-        <textinput v-model="mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)" />
+        <textinput
+          v-model="carDetail.mileage"
+          label="เลขไมล์ของรถ"
+          placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)"
+          disabled
+        />
       </div>
     </div>
     <template #footer>
       <div class="grid gap-y-2 lg:flex gap-x-2">
-        <button
-          @click="openReserveModal = !openReserveModal"
-          class="btn btn-outline lg:w-32 font-normal"
-        >
+        <button @click="reserveModal = !reserveModal" class="btn btn-outline lg:w-32 font-normal">
           ยกเลิก
         </button>
         <div class="w-full">
           <button
-            @click="submit"
+            @click="submit(carDetail.id)"
             class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
           >
             จอง
@@ -151,45 +170,73 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { cars } from '@/constant/example-table'
+import { ref, computed, onMounted, reactive } from 'vue'
+// import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
+import { getUserInfo } from '@/constant/accountLogin'
 
-import Icon from '@/components/Icon/index.vue'
+import useCar from '@/componsable/car/cars'
+import useDriver from '@/componsable/user/driver'
+import useReserve from '@/componsable/reserve/reserve'
 import textinput from '@/components/textinput/index.vue'
 import Select from '@/components/Select/index.vue'
+import Icon from '@/components/Icon/index.vue'
 
 const toast = useToast()
-const openReserveModal = ref(false)
-const licensePlate = ref('')
-const mileage = ref('')
-const selectTypeCars = ref('')
-const address = ref('')
-const date = ref(new Date())
-const selectDriver = ref('')
+const { carDetails, getCarDetails, carDetail, getCarDetail, updateCar } = useCar()
+const { getDriverDetails, driverDetails } = useDriver()
+const { createReserveCarDetail } = useReserve()
+const reserveModal = ref(false)
+const account = getUserInfo()
 
-function handleSelectTypeCars(value) {
-  selectTypeCars.value = value
+const data = reactive({
+  booking_date: '',
+  namedriver: '',
+  location: '',
+  type_car: '',
+  license_plate: '',
+  mileage: '',
+  nameuser: account.firstname + ' ' + account.lastname,
+  time: ''
+})
+
+onMounted(() => {
+  getCarDetails()
+  getDriverDetails()
+})
+
+function openReserveModal(id) {
+  reserveModal.value = true
+  getCarDetail(id).then(() => {
+    data.type_car = carDetail.value.typecar
+    data.license_plate = carDetail.value.license_plate
+    data.mileage = carDetail.value.mileage
+  })
 }
 
-function submit() {
-  licensePlate.value = ''
-  mileage.value = ''
-  selectTypeCars.value = ''
-  address.value = ''
-  date.value = new Date()
-  selectDriver.value = ''
-  toast.success('จองเรียบร้อยแล้ว', {
-    timeout: 2000
-  })
-  openReserveModal.value = !openReserveModal.value
+function submit(id) {
+  if (!data.booking_date || !data.time || !data.namedriver || !data.location) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
+      timeout: 2000
+    })
+    return
+  } else {
+    carDetail.value.status = 'Reserve'
+    updateCar(id)
+    console.log(data)
+    createReserveCarDetail(data)
+    toast.success('จองรถสำเร็จ', {
+      timeout: 2000
+    })
+    reserveModal.value = !reserveModal.value
+  }
 }
 
 const headers = [
   {
     key: 'id',
-    label: 'ไอดี'
+    label: 'ลำดับ'
   },
   {
     key: 'type',
@@ -198,6 +245,14 @@ const headers = [
   {
     key: 'brand',
     label: 'แบรนด์'
+  },
+  {
+    key: 'licensePlate',
+    label: 'เลขทะเบียน'
+  },
+  {
+    key: 'mileage',
+    label: 'เลขไมล์'
   },
   {
     key: 'status',
@@ -209,48 +264,24 @@ const headers = [
   }
 ]
 
-const typeCars = ref([
-  'รถยนต์',
-  'รถจักรยานยนต์',
-  'รถบรรทุก',
-  'รถตู้',
-  'รถบัส',
-  'รถเก๋ง',
-  'รถตู้ทัวร์'
-])
-
-const driver = [
-  {
-    id: 1,
-    name: 'นาย สมชาย ใจดี'
-  },
-  {
-    id: 2,
-    name: 'นาย สมหญิง ใจร้าย'
-  },
-  {
-    id: 3,
-    name: 'นาย สมศรี ใจเย็น'
-  }
-]
 
 const drivers = () => {
-  return driver.map((item) => item.name)
+  return driverDetails.value.map((item) => item.first_name + ' ' + item.last_name)
 }
 
 function handleSelectDriver(value) {
-  selectDriver.value = value
+  data.namedriver = value
 }
 
 const searchTerm = ref('')
 
 const filteredCars = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return cars.filter((car) => {
+  return carDetails.value.filter((car) => {
     return (
-      car.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.typecar.toLowerCase().includes(lowerCaseSearchTerm) ||
       car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+      car.license_plate.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
@@ -258,7 +289,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 3
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

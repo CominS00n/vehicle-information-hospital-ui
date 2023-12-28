@@ -38,9 +38,9 @@
               <td>{{ car.oil }}</td>
               <td>{{ car.brake }}</td>
               <td>
-                <button @click="openDetailModal = !openDetailModal">
+                <!-- <button @click="openDetailModal = !openDetailModal">
                   <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
-                </button>
+                </button> -->
                 <button @click="deleteCar(car.id)" class="hover:bg-slate-300 p-2 rounded-full">
                   <Icon icon="heroicons-outline:trash" class="text-xl" />
                 </button>
@@ -77,7 +77,7 @@
   </TransitionRoot>
 
   <!--? Modal edit car -->
-  <n-modal
+  <!-- <n-modal
     v-model:show="openDetailModal"
     class="custom-card rounded-lg"
     preset="card"
@@ -110,7 +110,7 @@
         </div>
       </div>
     </template>
-  </n-modal>
+  </n-modal> -->
 </template>
 
 <script setup>
