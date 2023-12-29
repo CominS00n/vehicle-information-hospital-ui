@@ -1,18 +1,28 @@
 export const menuItems_Admin = [
   {
+    title: 'ข้อมูลผู้ใช้',
+    icon: 'heroicons-outline:user',
+    link: 'admin-user-manage'
+  },
+  {
     title: 'ข้อมูลรถ',
     icon: 'heroicons-outline:truck',
     link: 'admin-car'
   },
   {
-    title: 'ตารางการใช้รถ',
-    icon: 'heroicons-outline:document-text',
-    link: 'admin-car-use'
-  },
-  {
     title: 'จองรถ',
     icon: 'heroicons-outline:bookmark',
     link: 'admin-reserve'
+  },
+  {
+    title: 'ข้อมูลการจองรถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'admin-view-reserve'
+  },
+  {
+    title: 'ตารางการใช้รถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'admin-car-use'
   },
   {
     title: 'อุปกรณ์',
@@ -39,6 +49,16 @@ export const menuItems_Admin = [
 
 export const menuItems_User = [
   {
+    title: 'จองรถ',
+    icon: 'heroicons-outline:bookmark',
+    link: 'employee-reserve'
+  },
+  {
+    title: 'ข้อมูลการจองรถ',
+    icon: 'heroicons-outline:document-text',
+    link: 'employee-view-reserve'
+  },
+  {
     title: 'ข้อมูลรถ',
     icon: 'heroicons-outline:truck',
     link: 'employee-car'
@@ -47,11 +67,6 @@ export const menuItems_User = [
     title: 'ตารางการใช้รถ',
     icon: 'heroicons-outline:document-text',
     link: 'employee-car-use'
-  },
-  {
-    title: 'จองรถ',
-    icon: 'heroicons-outline:bookmark',
-    link: 'employee-reserve'
   },
   // {
   //   title: 'อุปกรณ์',

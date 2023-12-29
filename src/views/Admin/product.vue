@@ -30,8 +30,9 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="equipment in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
+          <tr v-for="(equipment, i) in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
             <!-- <td>{{ equipment.id }}</td> -->
+            <td>{{ i + 1 }}</td>
             <td>{{ equipment.namedevice }}</td>
             <td>
               <span v-if="equipment.amount <= 0" class="badge bg-red-400 text-white"
@@ -53,7 +54,7 @@
                   @click="deleteEquipment(equipment.id)"
                   class="hover:bg-slate-300 p-2 rounded-full"
                 >
-                  <Icon icon="heroicons-outline:trash" class="text-xl" />
+                  <Icon icon="heroicons-outline:trash" class="text-xl text-[#ef1822]" />
                 </button>
               </div>
             </td>
@@ -176,12 +177,11 @@ function openEditModal(id) {
   })
 }
 function submit(id) {
-  EditModal.value = false
-  if (!data.namedevice || !data.amount || !data.group || !data.detail) {
+  if (!data.namedevice || !data.group || !data.detail || !equipmentDetail.value.amount) {
+    console.log(data)
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
       timeout: 2000
     })
-    return
   } else {
     updateEquipmentDetails(id)
     toast.success('เพิ่มอุปกรณ์สำเร็จ', {
@@ -191,6 +191,7 @@ function submit(id) {
     data.amount = ''
     data.group = ''
     data.detail = ''
+    EditModal.value = false
   }
 }
 
@@ -215,10 +216,10 @@ function deleteEquipment(id) {
 }
 
 const headers = [
-  // {
-  //   key: 'id',
-  //   label: 'ไอดี'
-  // },
+  {
+    key: 'id',
+    label: 'ลำดับ'
+  },
   {
     key: 'name',
     label: 'ชื่ออุปกรณ์'

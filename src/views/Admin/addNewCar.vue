@@ -31,7 +31,7 @@
             label="หมายเลขทะเบียนรถ"
             placeholder="กรอกหมายเลขทะเบียนรถ"
           />
-          <textinput v-model="data.mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ" />
+          <textinput v-model="data.in_mileage" label="เลขไมล์ของรถ" placeholder="กรอกเลขไมล์ของรถ" />
           <textinput
             v-model="data.oil"
             type="date"
@@ -106,7 +106,7 @@ const data = reactive({
   typecar: '',
   brand: '',
   license_plate: '',
-  mileage: '',
+  in_mileage: '',
   oil: '',
   brake: '',
   status: 'Unreserve'
@@ -117,7 +117,7 @@ function addCar(data) {
     !data.typecar ||
     !data.brand ||
     !data.license_plate ||
-    !data.mileage ||
+    !data.in_mileage ||
     !data.oil ||
     !data.brake
   ) {
@@ -133,7 +133,7 @@ function addCar(data) {
     data.typecar = ''
     data.brand = ''
     data.license_plate = ''
-    data.mileage = ''
+    data.in_mileage = ''
     data.oil = ''
     data.brake = ''
   }

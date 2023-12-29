@@ -29,17 +29,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="car in paginatedCarReservation" class="hover:bg-slate-100 hover:shadow-md">
-              <td>{{ car.date }}</td>
-              <td>{{ car.driver }}</td>
-              <td>{{ car.address }}</td>
-              <td>{{ car.typeCar }}</td>
-              <td>{{ car.licensePlate }}</td>
+            <tr
+              v-for="(car, i) in paginatedCarReservation"
+              class="hover:bg-slate-100 hover:shadow-md"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ car.booking_date }}</td>
+              <td>{{ car.time }}</td>
+              <td>{{ car.nameuser }}</td>
+              <td>{{ car.namedriver }}</td>
+              <td>{{ car.location }}</td>
+              <td>{{ car.type_car }}</td>
+              <td>{{ car.license_plate }}</td>
               <td>
                 <div class="space-x-2">
                   <button
                     class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
-                    @click="openReportModal(car.id, car.date, car.driver, car.licensePlate)"
+                    @click="openReportModal(car.id)"
                   >
                     กรอกข้อมูล
                   </button>
@@ -58,22 +64,22 @@
 
       <!-- Pagination -->
       <div v-if="totalPages > 1" class="flex gap-x-3 justify-between lg:justify-end items-center">
-          <button
-            @click="goToPreviousPage"
-            :disabled="currentPage === 1"
-            class="border p-2 rounded-md hover:bg-gray-100"
-          >
-            <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
-          </button>
-          <span>Page {{ currentPage }} of {{ totalPages }}</span>
-          <button
-            @click="goToNextPage"
-            :disabled="currentPage === totalPages"
-            class="border p-2 rounded-md hover:bg-gray-100"
-          >
-            <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
-          </button>
-        </div>
+        <button
+          @click="goToPreviousPage"
+          :disabled="currentPage === 1"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-left" class="w-5 h-5" />
+        </button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+          @click="goToNextPage"
+          :disabled="currentPage === totalPages"
+          class="border p-2 rounded-md hover:bg-gray-100"
+        >
+          <Icon icon="heroicons-outline:chevron-right" class="w-5 h-5" />
+        </button>
+      </div>
     </div>
 
     <!--? Modal -->
@@ -87,21 +93,44 @@
       size="huge"
     >
       <div class="grid gap-y-3">
-        <textinput v-model="dateSelect" label="วันที่" disabled />
-        <textinput v-model="driverSelect" label="คนขับ" disabled />
-        <textinput v-model="licensePlateSelect" label="เลขทะเบียนรถ" disabled />
+        <textinput v-model="reserveCarDetail.booking_date" label="วันที่" disabled />
+        <textinput v-model="reserveCarDetail.namedriver" label="คนขับ" disabled />
+        <textinput v-model="reserveCarDetail.license_plate" label="เลขทะเบียนรถ" disabled />
+        <textinput
+          v-model="data.details"
+          label="รายละเอียด"
+          placeholder="กรอกรายละเอียดการใช้งาน"
+        />
         <div>
           <div class="divider text-slate-500">เวลา</div>
           <div class="grid gap-y-2 lg:flex gap-x-2">
-            <textinput v-model="time_in" label="ออก" type="time" class="w-full" />
-            <textinput v-model="time_out" label="เข้า" type="time" class="w-full" />
+            <textinput
+              v-model="data.time_out"
+              label="ออก"
+              type="time"
+              class="w-full"
+              :disabled="data.time_out !== ''"
+            />
+            <textinput v-model="data.time_in" label="เข้า" type="time" class="w-full" />
           </div>
         </div>
         <div>
           <div class="divider text-slate-500">เลขไมล์</div>
           <div class="grid gap-y-2 lg:flex gap-x-2">
-            <textinput v-model="mileage_in" label="ออก" type="number" class="w-full" disabled />
-            <textinput v-model="mileage_out" label="เข้า" type="number" class="w-full" placeholder="กรอกเลขไมล์หลังใช้งาน" />
+            <textinput
+              v-model="reserveCarDetail.mileage"
+              label="ออก"
+              type="number"
+              class="w-full"
+              disabled
+            />
+            <textinput
+              v-model="data.in_mileage"
+              label="เข้า"
+              type="number"
+              class="w-full"
+              placeholder="กรอกเลขไมล์หลังใช้งาน"
+            />
           </div>
         </div>
       </div>
@@ -126,64 +155,114 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
-import { carReservations } from '@/constant/example-table'
+// import { carReservations } from '@/constant/example-table'
 import { useToast } from 'vue-toastification'
 
+import useReserve from '@/componsable/reserve/reserve'
+import useCarUse from '@/componsable/car/carUse'
+import useCar from '@/componsable/car/cars'
 import textinput from '@/components/textinput/index.vue'
-// import Select from '@/components/Select/index.vue'
 import Icon from '@/components/Icon/index.vue'
 
-// function handleSelectTypeCars(value) {
-//   selectTypeCars.value = value
-// }
+const {
+  getReserveCarDetails,
+  reserveCarDetails,
+  getReserveCarDetail,
+  reserveCarDetail,
+  updateReserveCarDetail
+} = useReserve()
+const { createCarUse } = useCarUse()
+const { carDetails, updateCar, getCarDetails, carDetail, getCarDetail } = useCar()
+
+onMounted(() => {
+  getReserveCarDetails()
+  getCarDetails()
+})
+
 const openModal = ref(false)
-const dateSelect = ref('')
-const driverSelect = ref('')
-const licensePlateSelect = ref('')
-const mileage_in = ref('')
-const mileage_out = ref('')
-const time_in = ref('')
-const time_out = ref('')
+// const inputDate = ref('')
+const updateID = ref('')
+
+const data = reactive({
+  date: '',
+  name_driver: '',
+  license_plate: '',
+  time_out: '',
+  time_in: '',
+  out_mileage: '',
+  in_mileage: '',
+  details: ''
+})
+
 const toast = useToast()
 
-function openReportModal(id, date, driver, licensePlate) {
+function openReportModal(id) {
   openModal.value = true
-  dateSelect.value = date
-  driverSelect.value = driver
-  licensePlateSelect.value = licensePlate
+  updateID.value = id
+  getReserveCarDetail(id).then(() => {
+    data.date = reserveCarDetail.value.booking_date
+    data.name_driver = reserveCarDetail.value.namedriver
+    data.license_plate = reserveCarDetail.value.license_plate
+    data.out_mileage = reserveCarDetail.value.mileage
+    console.log(data)
+  })
 }
 
 function submit() {
   if (
-    time_in.value === '' ||
-    time_out.value === '' ||
-    mileage_in.value === '' ||
-    mileage_out.value === ''
+    data.date === '' ||
+    data.name_driver === '' ||
+    data.license_plate === '' ||
+    data.time_out === '' ||
+    data.time_in === '' ||
+    data.in_mileage === '' ||
+    data.out_mileage === ''
   ) {
     toast.error('กรุณากรอกข้อมูลให้ครบ', {
       timeout: 2000
     })
   } else {
+    const updateCarID = () => {
+      return carDetails.value.find(
+        (car) => car.license_plate === reserveCarDetail.value.license_plate
+      )
+    }
+    const carID = updateCarID().id
+    getCarDetail(carID).then(() => {
+      console.log(carDetail.value)
+      carDetail.value.status = 'Unreserve'
+      carDetail.value.in_mileage = data.in_mileage
+      updateCar(carID)
+      console.log(carDetail.value)
+    })
+    reserveCarDetail.value.status = 'Unreserve'
+    updateReserveCarDetail(updateID.value)
+    createCarUse(data)
     toast.success('บันทึกข้อมูลสำเร็จ', {
       timeout: 2000
     })
     openModal.value = false
-    dateSelect.value = ''
-    driverSelect.value = ''
-    licensePlateSelect.value = ''
-    mileage_in.value = ''
-    mileage_out.value = ''
-    time_in.value = ''
-    time_out.value = ''
   }
 }
 
 const headers = [
   {
+    key: 'id',
+    label: 'ลำดับ'
+  },
+  {
     key: 'date',
     label: 'วันที่จอง'
+  },
+  {
+    key: 'time',
+    label: 'เวลาที่จอง'
+  },
+  {
+    key: 'nameReserve',
+    label: 'ชื่อผู้จอง'
   },
   {
     key: 'driver',
@@ -211,11 +290,13 @@ const searchTerm = ref('')
 
 const filteredCarReservations = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return carReservations.filter((carReservation) => {
+  return reserveCarDetails.value.filter((carReservation) => {
     return (
-      carReservation.driver.toLowerCase().includes(lowerCaseSearchTerm) ||
-      carReservation.typeCar.toLowerCase().includes(lowerCaseSearchTerm) ||
-      carReservation.licensePlate.toLowerCase().includes(lowerCaseSearchTerm)
+      (carReservation.namedriver.toLowerCase().includes(lowerCaseSearchTerm) ||
+        carReservation.type_car.toLowerCase().includes(lowerCaseSearchTerm) ||
+        carReservation.license_plate.toLowerCase().includes(lowerCaseSearchTerm) ||
+        carReservation.nameuser.toLowerCase().includes(lowerCaseSearchTerm)) &&
+      carReservation.status === 'Reserve'
     )
   })
 })

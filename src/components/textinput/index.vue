@@ -9,6 +9,8 @@
         :value="modelValue"
         @input="updateValue"
         :disabled="disabled"
+        :max="max"
+        :min="min"
       />
       <div v-if="password" class="absolute z-10 right-4">
         <button v-if="type === 'password'">
@@ -64,7 +66,15 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    max: {
+      type: String,
+      default: '' 
+    },
+    min: {
+      type: String, 
+      default: '0'   
+    },
   },
   methods: {
     updateValue(event) {

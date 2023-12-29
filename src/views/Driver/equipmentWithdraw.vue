@@ -31,21 +31,24 @@
         </thead>
         <tbody>
           <!-- row 1 -->
-          <tr v-for="equipment in paginatedEquipments" class="hover:bg-slate-100 hover:shadow-md">
-            <td>{{ equipment.id }}</td>
-            <td>{{ equipment.name }}</td>
+          <tr
+            v-for="(equipment, i) in paginatedEquipments"
+            class="hover:bg-slate-100 hover:shadow-md"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ equipment.namedevice }}</td>
             <td>
               <span v-if="equipment.amount <= 0" class="badge bg-red-400 text-white"
                 >Out of Stock</span
               >
               <span v-else> {{ equipment.amount }}</span>
             </td>
-            <td>{{ equipment.category }}</td>
+            <td>{{ equipment.group }}</td>
             <td>{{ equipment.detail }}</td>
             <td>
               <div class="flex gap-x-2">
                 <button
-                  @click="Modal = true"
+                  @click="openModal(equipment.id)"
                   class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
                 >
                   เบิกอุปกรณ์
@@ -87,24 +90,35 @@
       class="custom-card rounded-lg"
       preset="card"
       style="width: 600px"
-      title="เพิ่มจำนวนอุปกรณ์"
+      title="เบิกอุปกรณ์"
       :bordered="false"
       size="huge"
     >
       <div class="grid gap-4">
         <div>
-          <textinput label="ผู้เบิกอุปกรณ์" placeholder="กรอกผู้เบิกอุปกรณ์" />
-        </div>
-        <div>
-          <Select
-            @select="handleSelectEquipment"
-            :menuLists="equipmentList"
-            :placeholder="'เลือกอุปกรณ์'"
-            label="อุปกรณ์"
+          <textinput
+            v-model="data.name"
+            label="ผู้เบิกอุปกรณ์"
+            placeholder="กรอกผู้เบิกอุปกรณ์"
           />
         </div>
         <div>
-          <textinput label="จำนวน" placeholder="จำนวน" type="number" />
+          <textinput
+            v-model="equipmentDetail.namedevice"
+            label="อุปกรณ์"
+            placeholder="อุปกรณ์"
+            disabled
+          />
+        </div>
+        <div>
+          <textinput
+            v-model="quantity"
+            label="จำนวน"
+            :placeholder="`จำนวนทั้งหมดที่มี ${data.amount} ชิ้น`"
+            type="number"
+            :max="data.amount"
+            min="0"
+          />
         </div>
         <div>
           <textinput
@@ -124,7 +138,7 @@
         </div>
         <div class="w-full">
           <button
-            @click="submit"
+            @click="submit(equipmentDetail.id)"
             class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] w-full font-normal"
           >
             บันทึก
@@ -136,18 +150,40 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
-import { equipments } from '@/constant/example-table'
+import { getUserInfo } from '@/constant/accountLogin'
 
-import Select from '@/components/Select/index.vue'
+import useEquipment from '@/componsable/equipment/equipment'
+import useEquipmentWithdraw from '@/componsable/equipment/equipmentWithdraw'
 import textinput from '@/components/textinput/index.vue'
 import Icon from '@/components/Icon/index.vue'
 
-const selectEquipment = ref('')
+const {
+  getEquipmentDetails,
+  equipmentDetails,
+  updateEquipmentDetails,
+  getEquipmentDetail,
+  equipmentDetail
+} = useEquipment()
+const { createEquipmentWithdraws } = useEquipmentWithdraw()
+
+const account = getUserInfo()
+
+onMounted(() => {
+  getEquipmentDetails()
+})
+
 const dateSelect = ref(new Date().toISOString().substr(0, 10))
-const equipmentList = ref(['แปรงล้างรถ', 'น้ำยาล้างรถ', 'ผ้าเช็ดรถ'])
+const data = reactive({
+  name: account.firstname + ' ' + account.lastname,
+  namedevice: '',
+  amount: '',
+  date: dateSelect.value
+})
+
+const quantity = ref()
 
 const toast = useToast()
 
@@ -180,30 +216,57 @@ const headers = [
   }
 ]
 
-const submit = () => {
-  toast.success('บันทึกข้อมูลการเบิกเรียบร้อยแล้ว', {
-    timeout: 2000
-  })
-  Modal.value = false
+const submit = (id) => {
+  if (!data.name || !data.namedevice || !data.amount || !data.date || !quantity.value) {
+    toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
+      timeout: 2000
+    })
+    quantity.value = ''
+  } else {
+    if (quantity.value > data.amount) {
+      toast.error('จำนวนไม่พอสำหรับเบิก', {
+        timeout: 2000
+      })
+      quantity.value = ''
+    } else {
+      data.amount = data.amount - quantity.value
+      equipmentDetail.value.amount = data.amount
+      console.log(equipmentDetail.value.amount)
+      updateEquipmentDetails(id)
+      data.amount = quantity.value
+      console.log(data)
+      createEquipmentWithdraws(data)
+      quantity.value = ''
+      toast.success('บันทึกข้อมูลการเบิกเรียบร้อยแล้ว', {
+        timeout: 2000
+      })
+      Modal.value = false
+    }
+  }
 }
 
-function handleSelectEquipment(value) {
-  selectEquipment.value = value
+function openModal(id) {
+  Modal.value = true
+  getEquipmentDetail(id).then(() => {
+    data.namedevice = equipmentDetail.value.group
+    data.amount = equipmentDetail.value.amount
+  })
 }
+
 
 const searchTerm = ref('')
 
 const filteredEquipments = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return equipments.filter((car) => {
+  return equipmentDetails.value.filter((car) => {
     return (
-      car.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.category.toLowerCase().includes(lowerCaseSearchTerm)
+      car.namedevice.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.group.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
 
-//pagination
+// //pagination
 const currentPage = ref(1)
 
 const pageSize = 2

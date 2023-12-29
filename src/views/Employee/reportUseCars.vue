@@ -27,25 +27,27 @@
           <!-- head -->
           <thead>
             <tr class="text-base text-center text-black">
+              <th>ลำดับ</th>
               <th>วันที่</th>
-              <th>เวลาเข้า</th>
               <th>เวลาออก</th>
+              <th>เวลาเข้า</th>
               <th>รายละเอียด</th>
-              <th>เลขไมล์เข้า</th>
               <th>เลขไมล์ออก</th>
+              <th>เลขไมล์เข้า</th>
               <th>ผู้ขับ</th>
             </tr>
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="report in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(report, i) in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ i + 1 }}</td>
               <td>{{ report.date }}</td>
-              <td class="text-center">{{ report.time_in }}</td>
               <td class="text-center">{{ report.time_out }}</td>
-              <td>{{ report.description }}</td>
-              <td class="text-center">{{ report.mileage_in }}</td>
-              <td class="text-center">{{ report.mileage_out }}</td>
-              <td>{{ report.driver }}</td>
+              <td class="text-center">{{ report.time_in }}</td>
+              <td>{{ report.details }}</td>
+              <td class="text-center">{{ report.out_mileage }}</td>
+              <td class="text-center">{{ report.in_mileage }}</td>
+              <td>{{ report.name_driver }}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -82,36 +84,38 @@
       <table class="table">
           <!-- head -->
           <thead>
-            <tr class="text-center text-sm text-black">
+            <tr class="text-sm text-black">
+              <th>ลำดับ</th>
               <th>วันที่</th>
-              <th class="grid grid-cols-2 gap-x-2">
+              <th class="grid grid-cols-2 gap-x-2 text-center">
                 <th class="col-span-2 p-1">เวลา</th>
-                <th class="p-1">เวลาเข้า</th>
-                <th class="p-1 ">เวลาออก</th>
+                <th class="p-1">เวลาออก</th>
+                <th class="p-1 ">เวลาเข้า</th>
               </th>
               <th>รายละเอียด</th>
-              <th class="grid grid-cols-2 gap-x-2">
+              <th class="grid grid-cols-2 gap-x-2 text-center">
                 <th class="col-span-2 p-1">เลขไมล์</th>
-                <th class="p-1">เลขไมล์เข้า</th>
                 <th class="p-1">เลขไมล์ออก</th>
+                <th class="p-1">เลขไมล์เข้า</th>
               </th>
               <th>ผู้ขับ</th>
             </tr>
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="report in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(report, i) in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+              <td>{{ i + 1 }}</td>
               <td>{{ report.date }}</td>
               <td class="grid grid-cols-2 gap-x-2 text-center">
-                <td class="p-0">{{ report.time_in }}</td>
                 <td class="p-0">{{ report.time_out }}</td>
+                <td class="p-0">{{ report.time_in }}</td>
               </td>
-              <td>{{ report.description }}</td>
+              <td>{{ report.details }}</td>
               <td class="grid grid-cols-2 text-center gap-x-2">
-                <td class="p-0">{{ report.mileage_in }}</td>
-                <td class="p-0">{{ report.mileage_out }}</td>
+                <td class="p-0">{{ report.out_mileage }}</td>
+                <td class="p-0">{{ report.in_mileage }}</td>
               </td>
-              <td>{{ report.driver }}</td>
+              <td>{{ report.name_driver }}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -143,23 +147,28 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
-import { reports } from '@/constant/example-table'
+// import { reports } from '@/constant/example-table'
 
+import useCarUse from '@/componsable/car/carUse'
 import textinput from '@/components/textinput/index.vue'
 import Icon from '@/components/Icon/index.vue'
 
+const { carUseDetails, getCarUseDetails } = useCarUse()
 
+onMounted(() => {
+  getCarUseDetails()
+})
 //Search function
 const searchTerm = ref('')
 
 const filteredReports = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return reports.filter((report) => {
+  return carUseDetails.value.filter((report) => {
     return (
       report.date.toLowerCase().includes(lowerCaseSearchTerm) ||
-      report.driver.toLowerCase().includes(lowerCaseSearchTerm)
+      report.name_driver.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
 })
@@ -167,7 +176,7 @@ const filteredReports = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 8
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredReports.value.length / pageSize))
 

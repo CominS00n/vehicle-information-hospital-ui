@@ -80,6 +80,7 @@ function login() {
     account.value = foundAdmin
     isLoggedIn.value = true
     saveUserInfo({
+      id: foundAdmin.id,
       username: username.value,
       firstname: foundAdmin.first_name,
       lastname: foundAdmin.last_name,

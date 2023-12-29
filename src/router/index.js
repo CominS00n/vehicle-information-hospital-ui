@@ -32,7 +32,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin-layout',
-      redirect: '/admin/admin-car',
+      redirect: '/admin/admin-user-manage',
       component: () => import('@/layout/Admin/index.vue'),
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
@@ -43,6 +43,11 @@ const router = createRouter({
         }
       },
       children: [
+        {
+          path: 'admin-user-manage',
+          name: 'admin-user-manage',
+          component: () => import('@/views/Admin/userManage/userManagement.vue')
+        },
         {
           path: 'admin-car',
           name: 'admin-car',
@@ -77,7 +82,12 @@ const router = createRouter({
           path: 'admin-car-use',
           name: 'admin-car-use',
           component: () => import('@/views/Admin/reportUseCars.vue')
-        }
+        },
+        {
+          path: 'admin-view-reserve',
+          name: 'admin-view-reserve',
+          component: () => import('@/views/Admin/reserveView.vue')
+        },
       ]
     },
 
@@ -85,7 +95,7 @@ const router = createRouter({
     {
       path: '/employee',
       name: 'employee-layout',
-      redirect: '/employee/employee-car',
+      redirect: '/employee/employee-reserve',
       component: () => import('@/layout/User/index.vue'),
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
@@ -110,7 +120,12 @@ const router = createRouter({
           path: 'employee-car-use',
           name: 'employee-car-use',
           component: () => import('@/views/Employee/reportUseCars.vue')
-        }
+        },
+        {
+          path: 'employee-view-reserve',
+          name: 'employee-view-reserve',
+          component: () => import('@/views/Employee/reserveView.vue')
+        },
       ]
     },
 

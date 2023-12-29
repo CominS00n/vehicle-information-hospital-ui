@@ -9,7 +9,7 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <h1 class="text-2xl">ข้อมูลรถ</h1>
+    <h1 class="text-2xl">ข้อมูลการจอง</h1>
     <hr class="my-4 lg:my-6" />
     <div class="flex justify-end">
       <textinput
@@ -31,18 +31,21 @@
           <tbody>
             <tr v-for="(car, i) in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
               <td>{{ i + 1 }}</td>
-              <td>{{ car.typecar }}</td>
-              <td>{{ car.brand }}</td>
+              <td>{{ car.booking_date }}</td>
+              <td>{{ car.time }}</td>
+              <td>{{ car.nameuser }}</td>
+              <td>{{ car.namedriver }}</td>
+              <td>{{ car.location }}</td>
+              <td>{{ car.type_car }}</td>
               <td>{{ car.license_plate }}</td>
-              <td>{{ car.in_mileage }}</td>
-              <td>{{ car.oil }}</td>
-              <td>{{ car.brake }}</td>
+              <td>{{ car.status }}</td>
               <td>
-                <!-- <button @click="openDetailModal = !openDetailModal">
-                  <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
-                </button> -->
-                <button @click="deleteCar(car.id)" class="hover:bg-slate-300 p-2 rounded-full">
-                  <Icon icon="heroicons-outline:trash" class="text-xl text-[#ef1822]" />
+                <button
+                  @click="deleteCarReserve(car.id, car.license_plate)"
+                  :class="`p-2 rounded-full ${car.status === 'Unreserve' ? '': 'hover:bg-slate-300'}`"
+                  :disabled="car.status === 'Unreserve'"
+                >
+                  <Icon icon="heroicons-outline:trash" :class="car.status === 'Unreserve' ? 'text-xl text-slate-400' : 'text-xl text-[#ef1822]'" />
                 </button>
               </td>
             </tr>
@@ -75,64 +78,28 @@
       </div>
     </div>
   </TransitionRoot>
-
-  <!--? Modal edit car -->
-  <!-- <n-modal
-    v-model:show="openDetailModal"
-    class="custom-card rounded-lg"
-    preset="card"
-    style="width: 600px"
-    title="ข้อมูลรถ"
-    :bordered="false"
-    size="huge"
-  >
-    <div class="grid gap-4">
-      <textinput />
-      <textinput />
-      <textinput />
-      <textinput />
-    </div>
-    <template #footer>
-      <div class="flex gap-x-2">
-        <button
-          @click="openDetailModal = !openDetailModal"
-          class="btn btn-outline w-32 font-normal"
-        >
-          ยกเลิก
-        </button>
-        <div class="w-full">
-          <button
-            @click="submit"
-            class="btn w-full bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
-          >
-            บันทึก
-          </button>
-        </div>
-      </div>
-    </template>
-  </n-modal> -->
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-// import { cars } from '@/constant/example-table'
 import { TransitionRoot } from '@headlessui/vue'
 import { useToast } from 'vue-toastification'
 
+import useReserve from '@/componsable/reserve/reserve'
 import useCar from '@/componsable/car/cars'
 import Icon from '@/components/Icon/index.vue'
 import textinput from '@/components/textinput/index.vue'
 import Swal from 'sweetalert2'
 
-const { getCarDetails, carDetails, removeCar } = useCar()
+const { getReserveCarDetails, reserveCarDetails, deleteReserveCarDetail } = useReserve()
+const { updateCar, carDetail, getCarDetail, carDetails, getCarDetails } = useCar()
 
 onMounted(() => {
+  getReserveCarDetails()
   getCarDetails()
 })
 
 const toast = useToast()
-
-// const openDetailModal = ref(false)
 
 const headers = [
   {
@@ -140,28 +107,32 @@ const headers = [
     title: 'ลำดับ'
   },
   {
-    key: 'type',
-    title: 'ประเภท'
+    key: 'dateReserve',
+    title: 'วันที่จอง'
   },
   {
-    key: 'brand',
-    title: 'แบรนด์'
+    key: 'timeReserve',
+    title: 'เวลา'
+  },
+  {
+    key: 'nameReserve',
+    title: 'ชื่อผู้จอง'
+  },
+  {
+    key: 'nameDriver',
+    title: 'ชื่อผู้ขับ'
+  },
+  {
+    key: 'location',
+    title: 'สถานที่'
+  },
+  {
+    key: 'carType',
+    title: 'ประเภทรถ'
   },
   {
     key: 'licensePlate',
-    title: 'เลขทะเบียน'
-  },
-  {
-    key: 'mileage',
-    title: 'เลขไมล์'
-  },
-  {
-    key: 'lastChangeOil',
-    title: 'ถ่ายน้ำมันเครื่อง(ล่าสุด)'
-  },
-  {
-    key: 'lastChangeBrake',
-    title: 'ถ่ายน้ำมันเบรก(ล่าสุด)'
+    title: 'หมายเลขทะเบียนรถ'
   },
   {
     key: 'action',
@@ -169,14 +140,15 @@ const headers = [
   }
 ]
 
-// async function submit() {
-//   toast.success('บันทึกข้อมูลสำเร็จ', {
-//     timeout: 2000
-//   })
-//   openDetailModal.value = !openDetailModal.value
-// }
-
-async function deleteCar(id) {
+async function deleteCarReserve(id, licensePlate) {
+  const upDateID = () => {
+    return carDetails.value.find((car) => car.license_plate === licensePlate)
+  }
+  const carID = upDateID().id
+  console.log(carID)
+  getCarDetail(carID).then(() => {
+    carDetail.value.status = 'Unreserve'
+  })
   Swal.fire({
     title: 'คุณต้องการลบข้อมูลนี้หรือไม่?',
     text: 'หากต้องการลบ คุณจะไม่สามารถกู้คืนข้อมูลได้!',
@@ -188,7 +160,8 @@ async function deleteCar(id) {
     cancelButtonText: 'ยกเลิก'
   }).then((result) => {
     if (result.isConfirmed) {
-      removeCar(id)
+      deleteReserveCarDetail(id)
+      updateCar(carID)
       toast.error('ลบข้อมูลสำเร็จ', {
         timeout: 2000
       })
@@ -200,10 +173,10 @@ const searchTerm = ref('')
 
 const filteredCars = computed(() => {
   const lowerCaseSearchTerm = searchTerm.value.toLowerCase()
-  return carDetails.value.filter((car) => {
+  return reserveCarDetails.value.filter((car) => {
     return (
-      car.typecar.toLowerCase().includes(lowerCaseSearchTerm) ||
-      car.brand.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.type_car.toLowerCase().includes(lowerCaseSearchTerm) ||
+      car.namedriver.toLowerCase().includes(lowerCaseSearchTerm) ||
       car.license_plate.toLowerCase().includes(lowerCaseSearchTerm)
     )
   })
@@ -212,7 +185,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 7
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

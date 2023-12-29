@@ -34,7 +34,7 @@
               <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
               <td>{{ car.license_plate }}</td>
-              <td>{{ car.mileage }}</td>
+              <td>{{ car.in_mileage }}</td>
               <td>{{ car.oil }}</td>
               <td>{{ car.brake }}</td>
               <td>
@@ -42,7 +42,7 @@
                   <Icon icon="heroicons-outline:pencil-square" class="text-xl" />
                 </button> -->
                 <button @click="deleteCar(car.id)" class="hover:bg-slate-300 p-2 rounded-full">
-                  <Icon icon="heroicons-outline:trash" class="text-xl" />
+                  <Icon icon="heroicons-outline:trash" class="text-xl text-[#ef1822]" />
                 </button>
               </td>
             </tr>
@@ -212,7 +212,7 @@ const filteredCars = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 7
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCars.value.length / pageSize))
 

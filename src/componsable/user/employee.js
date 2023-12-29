@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
 
@@ -11,7 +10,6 @@ export default function useEmployee() {
   const userDetails = ref([])
   const userDetail = ref([])
   const errors = ref([])
-  const router = useRouter()
 
   const getUserDetails = async () => {
     const response = await axios.get(api_path.value)
@@ -30,7 +28,7 @@ export default function useEmployee() {
         url: api_path.value,
         data: data
       })
-      await router.push({ name: 'admin-register' })
+      location.reload()
     } catch (err) {
       if (err.response.status === 422) {
         errors.value = err.response.data.errors
@@ -41,7 +39,7 @@ export default function useEmployee() {
   const updateUserDetail = async (id) => {
     try {
       await axios.put(`${api_path.value}/${id}`, userDetail.value)
-      await router.push({ name: 'admin-register' })
+      location.reload()
     } catch (err) {
       errors.value = err.response.data.errors
     }

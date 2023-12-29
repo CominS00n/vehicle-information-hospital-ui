@@ -9,7 +9,7 @@
     leave-from="opacity-100 translate-y-0 sm:scale-100"
     leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
   >
-    <h1 class="text-2xl">ข้อมูลการจอง</h1>
+    <h1 class="text-2xl">จองรถ</h1>
     <hr class="my-4 lg:my-6" />
     <div class="flex justify-end">
       <textinput
@@ -36,7 +36,7 @@
               <td>{{ car.typecar }}</td>
               <td>{{ car.brand }}</td>
               <td>{{ car.license_plate }}</td>
-              <td>{{ car.mileage }}</td>
+              <td>{{ car.in_mileage }}</td>
               <td>
                 <div
                   v-if="car.status === 'Reserve'"
@@ -144,7 +144,7 @@
       </div>
       <div>
         <textinput
-          v-model="carDetail.mileage"
+          v-model="carDetail.in_mileage"
           label="เลขไมล์ของรถ"
           placeholder="กรอกเลขไมล์ของรถ (ล่าสุด)"
           disabled
@@ -198,7 +198,8 @@ const data = reactive({
   license_plate: '',
   mileage: '',
   nameuser: account.firstname + ' ' + account.lastname,
-  time: ''
+  time: '',
+  status: 'Reserve',
 })
 
 onMounted(() => {
@@ -211,12 +212,12 @@ function openReserveModal(id) {
   getCarDetail(id).then(() => {
     data.type_car = carDetail.value.typecar
     data.license_plate = carDetail.value.license_plate
-    data.mileage = carDetail.value.mileage
+    data.mileage = carDetail.value.in_mileage
   })
 }
 
 function submit(id) {
-  if (!data.booking_date || !data.time || !data.namedriver || !data.location) {
+  if (!data.booking_date || !data.time || !data.namedriver || !data.location || !data.mileage) {
     toast.error('กรุณากรอกข้อมูลให้ครบถ้วน', {
       timeout: 2000
     })
@@ -263,7 +264,6 @@ const headers = [
     label: ''
   }
 ]
-
 
 const drivers = () => {
   return driverDetails.value.map((item) => item.first_name + ' ' + item.last_name)
