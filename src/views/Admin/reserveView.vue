@@ -38,7 +38,6 @@
               <td>{{ car.location }}</td>
               <td>{{ car.type_car }}</td>
               <td>{{ car.license_plate }}</td>
-              <td>{{ car.status }}</td>
               <td>
                 <button
                   @click="deleteCarReserve(car.id, car.license_plate)"

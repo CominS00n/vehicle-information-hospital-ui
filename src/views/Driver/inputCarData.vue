@@ -304,7 +304,7 @@ const filteredCarReservations = computed(() => {
 //pagination
 const currentPage = ref(1)
 
-const pageSize = 5
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredCarReservations.value.length / pageSize))
 

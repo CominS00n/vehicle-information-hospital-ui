@@ -50,6 +50,7 @@
                 <button
                   @click="openModal(equipment.id)"
                   class="btn bg-[#099c3d] text-white hover:bg-[#099c3d] font-normal"
+                  :disabled="equipment.amount <= 0"
                 >
                   เบิกอุปกรณ์
                 </button>
@@ -269,7 +270,7 @@ const filteredEquipments = computed(() => {
 // //pagination
 const currentPage = ref(1)
 
-const pageSize = 2
+const pageSize = 10
 
 const totalPages = computed(() => Math.ceil(filteredEquipments.value.length / pageSize))
 
