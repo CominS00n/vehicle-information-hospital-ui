@@ -231,19 +231,20 @@ function submit() {
     }
     const carID = updateCarID().id
     getCarDetail(carID).then(() => {
-      console.log(carDetail.value)
+      // console.log(carDetail.value)
       carDetail.value.status = 'Unreserve'
       carDetail.value.in_mileage = data.in_mileage
       updateCar(carID)
-      console.log(carDetail.value)
+      // console.log(carDetail.value)
+      reserveCarDetail.value.status = 'Unreserve'
+      updateReserveCarDetail(updateID.value).then(() => {
+        createCarUse(data)
+        toast.success('บันทึกข้อมูลสำเร็จ', {
+          timeout: 2000
+        })
+        openModal.value = false
+      })
     })
-    reserveCarDetail.value.status = 'Unreserve'
-    updateReserveCarDetail(updateID.value)
-    createCarUse(data)
-    toast.success('บันทึกข้อมูลสำเร็จ', {
-      timeout: 2000
-    })
-    openModal.value = false
   }
 }
 
