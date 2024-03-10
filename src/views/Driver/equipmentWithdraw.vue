@@ -26,14 +26,15 @@
         <!-- head -->
         <thead>
           <tr>
-            <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+            <th v-for="(header, i) in headers" :key="i" class="text-base">{{ header.label }}</th>
           </tr>
         </thead>
         <tbody>
           <!-- row 1 -->
           <tr
             v-for="(equipment, i) in paginatedEquipments"
-            class="hover:bg-slate-100 hover:shadow-md"
+            :key="i"
+            :class="`${i % 2 !== 0? 'bg-gray-100' : ''} hover:bg-slate-100 hover:shadow-md`"
           >
             <td>{{ i + 1 }}</td>
             <td>{{ equipment.namedevice }}</td>

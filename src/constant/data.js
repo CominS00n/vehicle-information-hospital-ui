@@ -15,7 +15,7 @@ export const menuItems_Admin = [
     link: 'admin-reserve'
   },
   {
-    title: 'ข้อมูลการจองรถ',
+    title: 'รายงานการจองรถ',
     icon: 'heroicons-outline:document-text',
     link: 'admin-view-reserve'
   },
@@ -54,7 +54,7 @@ export const menuItems_User = [
     link: 'employee-reserve'
   },
   {
-    title: 'ข้อมูลการจองรถ',
+    title: 'รายงานการจองรถ',
     icon: 'heroicons-outline:document-text',
     link: 'employee-view-reserve'
   },

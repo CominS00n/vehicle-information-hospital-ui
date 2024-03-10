@@ -25,13 +25,14 @@
         <table class="table">
           <thead>
             <tr>
-              <th v-for="header in headers" class="text-base">{{ header.label }}</th>
+              <th v-for="(header, i) in headers" :key="i" class="text-base">{{ header.label }}</th>
             </tr>
           </thead>
           <tbody>
             <tr
               v-for="(car, i) in paginatedCarReservation"
-              class="hover:bg-slate-100 hover:shadow-md"
+              :key="i"
+              :class="`${i % 2 !== 0? 'bg-gray-100' : ''} hover:bg-slate-100 hover:shadow-md`"
             >
               <td>{{ i + 1 }}</td>
               <td>{{ car.booking_date }}</td>

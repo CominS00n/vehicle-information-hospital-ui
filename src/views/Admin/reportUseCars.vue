@@ -39,7 +39,7 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="(report, i) in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(report, i) in paginatedReport" :key="i" :class="`${i % 2 !== 0? 'bg-gray-100' : ''} hover:bg-slate-100 hover:shadow-md`">
               <td>{{ i + 1 }}</td>
               <td>{{ report.date }}</td>
               <td class="text-center">{{ report.time_out }}</td>
@@ -103,7 +103,7 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="(report, i) in paginatedReport" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(report, i) in paginatedReport" :key="i" :class="`${i % 2 !== 0? 'bg-gray-100' : ''} hover:bg-slate-100 hover:shadow-md`">
               <td>{{ i + 1 }}</td>
               <td>{{ report.date }}</td>
               <td class="grid grid-cols-2 gap-x-2 text-center">

@@ -13,11 +13,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th v-for="header in headers" class="text-base">{{ header.title }}</th>
+              <th v-for="(header, i) in headers" :key="i" class="text-base">{{ header.title }}</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, i) in paginatedCars" class="hover:bg-slate-100 hover:shadow-md">
+            <tr v-for="(user, i) in paginatedCars" :key="i" :class="`${i % 2 !== 0? 'bg-gray-100' : ''} hover:bg-slate-100 hover:shadow-md`">
               <td>{{ i + 1 }}</td>
               <td>{{ user.first_name }}</td>
               <td>{{ user.last_name }}</td>
