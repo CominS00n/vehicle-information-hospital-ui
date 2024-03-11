@@ -83,7 +83,7 @@ export const menuItems_User = [
 
 export const menuItems_Driver = [
   {
-    title: 'ตารางการใช้รถ',
+    title: 'ประวัติการใช้รถ',
     icon: 'heroicons-outline:document-text',
     link: 'driver-car'
   },
